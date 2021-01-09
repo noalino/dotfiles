@@ -20,31 +20,37 @@ RUN apt-get update -y && apt-get install -y \
       tmux \
       zsh
 
-# Install Node.js LTS
+# Install Node.js LTS (useful for cocvim)
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
 
+# Install oh-my-zsh
+RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
+
 # Make Zsh as default shell
 RUN chsh -s /usr/bin/zsh
-
-# Install oh-my-zsh & plugins
-RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh \
-    && git clone https://github.com/zsh-users/zsh-autosuggestions.git /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions \
-    && git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
-
-# Install neovim plugin manager
-RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
-       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Add dotfiles
 COPY ./zsh/* /root/
 COPY ./tmux/* /root/
 COPY ./nvim/ /root/.config/nvim/
 
+# Install oh-my-zsh plugins
+RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git /root/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+RUN git clone https://github.com/zsh-users/zsh-syntax-highlighting.git /root/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+# Install Tmux plugins 
+RUN git clone https://github.com/tmux-plugins/tpm /root/.tmux/plugins/tpm
+RUN git clone https://github.com/wfxr/tmux-power /root/.tmux/plugins/tmux-power
+
+# Install neovim plugin manager
+RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
+
 # Install neovim plugins
-RUN nvim --headless +PlugInstall +qall
+RUN /usr/bin/nvim --headless +PlugInstall +qall
 
 # Enable colors
 ENV TERM=xterm-256color
 
-CMD ["tmux"]
+ENTRYPOINT ["tmux"]
