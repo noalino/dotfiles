@@ -128,7 +128,8 @@ nnoremap <C-T> :NERDTreeToggle<CR>
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 "Markdown preview
-let g:mkdp_port = '55'
+let g:mkdp_open_to_the_world = 1
+let g:mkdp_echo_preview_url = 1
 
 " GitGutter
 " Show git diff in status line
