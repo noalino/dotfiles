@@ -129,7 +129,7 @@ nnoremap <C-T> :NERDTreeToggle<CR>
 
 "Markdown preview
 let g:mkdp_open_to_the_world = 1
-let g:mkdp_echo_preview_url = 1
+let g:mkdp_port = 5055
 
 " GitGutter
 " Show git diff in status line
