@@ -122,8 +122,7 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 " Map NERDTree toggle
-nunmap <C-n>
-nnoremap <C-n> :NERDTreeToggle<CR>
+nnoremap <C-N> :NERDTreeToggle<CR>
 
 " Close Vim window if NERDTree is the only one left open
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
