@@ -127,10 +127,6 @@ nnoremap <C-T> :NERDTreeToggle<CR>
 " Close Vim window if NERDTree is the only one left open
 "autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-"Markdown preview
-let g:mkdp_open_to_the_world = 1
-let g:mkdp_port = 5055
-
 " GitGutter
 " Show git diff in status line
 function! GitStatus()
