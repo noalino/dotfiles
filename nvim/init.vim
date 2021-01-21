@@ -122,6 +122,7 @@ set foldcolumn=1
 """""""""""""""""""""""""""""""""""""""""""""""
 " NERDTree
 " Map NERDTree toggle
+nunmap <C-n>
 nnoremap <C-n> :NERDTreeToggle<CR>
 
 " Close Vim window if NERDTree is the only one left open
