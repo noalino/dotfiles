@@ -48,7 +48,7 @@ RUN sh -c 'curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/p
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim'
 
 # Install neovim plugins
-RUN /usr/bin/nvim --headless +PlugInstall +qall
+RUN nvim --headless +PlugInstall +qall
 
 # Enable colors
 ENV TERM=xterm-256color
