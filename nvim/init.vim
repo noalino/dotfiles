@@ -123,9 +123,10 @@ set foldcolumn=1
 " NERDTree
 " Map NERDTree toggle
 nnoremap <C-T> :NERDTreeToggle<CR>
-
+" Map NERDTree Focus
+nnoremap <C-F> :NERDTreeFocus<CR>
 " Close Vim window if NERDTree is the only one left open
-"autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " GitGutter
 " Show git diff in status line
