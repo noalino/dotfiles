@@ -7,9 +7,10 @@ RUN apt-get update -y -q \
     && apt-get upgrade -y -q
 
 # Locales
-RUN apt-get update -y && apt-get install -y locales && rm -rf /var/lib/apt/lists/* \
+RUN apt-get update -y && apt-get install -y locales \
+    && rm -rf /var/lib/apt/lists/* \
     && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG en_US.utf8
+ENV LANG 'en_US.utf8'
 
 # Common packages
 RUN apt-get update -y && apt-get install -y \
@@ -18,11 +19,23 @@ RUN apt-get update -y && apt-get install -y \
       git \
       neovim \
       tmux \
+      tzdata \
       zsh
 
 # Install Node.js LTS (useful for cocvim)
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y nodejs
+
+# Setup timezone
+ENV TZ 'Europe/Paris'
+RUN echo $TZ > /etc/timezone \
+    && dpkg-reconfigure -f noninteractive tzdata
+
+# Create a user to run Docker as non-root
+ARG USER_ID
+ARG USER_NAME
+RUN useradd -u $USER_ID -U -ms /usr/bin/zsh $USER_NAME
+USER $USER_NAME
 
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
