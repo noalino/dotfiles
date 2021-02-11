@@ -1,4 +1,7 @@
 FROM ubuntu:latest
+
+LABEL maintainer "https://github.com/benoitgelineau"
+
 # Be unobstrusive for automatic installs
 ENV DEBIAN_FRONTEND noninteractive
 
