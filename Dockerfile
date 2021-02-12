@@ -1,43 +1,29 @@
-FROM ubuntu:latest
+FROM alpine:3.13
 
 LABEL maintainer "https://github.com/benoitgelineau"
 
-# Be unobstrusive for automatic installs
-ENV DEBIAN_FRONTEND noninteractive
-
-# Update and upgrade repo
-RUN apt-get update -y -q \
-    && apt-get upgrade -y -q
-
-# Locales
-RUN apt-get update -y && apt-get install -y locales \
-    && rm -rf /var/lib/apt/lists/* \
-    && localedef -i en_US -c -f UTF-8 -A /usr/share/locale/locale.alias en_US.UTF-8
-ENV LANG 'en_US.utf8'
+ENV LANG 'en_US.UTF8'
 
 # Common packages
-RUN apt-get update -y && apt-get install -y \
-      build-essential \
+RUN apk update && apk add --no-cache \
+      bash \
       curl \
       git \
       neovim \
+      nodejs=14.15.4-r0 \
       tmux \
       tzdata \
+      yarn>1.22.10 \
       zsh
-
-# Install Node.js LTS (useful for cocvim)
-RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y nodejs
 
 # Setup timezone
 ENV TZ 'Europe/Paris'
-RUN echo $TZ > /etc/timezone \
-    && dpkg-reconfigure -f noninteractive tzdata
+RUN echo $TZ > /etc/timezone
 
 # Create a user to run Docker as non-root
 ARG USER_ID
 ARG USER_NAME
-RUN useradd -u $USER_ID -U -ms /usr/bin/zsh $USER_NAME
+RUN adduser --uid $USER_ID --disabled-password --shell /bin/zsh $USER_NAME $USER_NAME
 USER $USER_NAME
 
 # Install oh-my-zsh
@@ -45,6 +31,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/in
 
 # Create dir to handle permissions
 RUN mkdir /home/$USER_NAME/.config
+
 # Add dotfiles
 COPY --chown=$USER_NAME:$USER_NAME ./zsh/* /home/$USER_NAME/
 COPY --chown=$USER_NAME:$USER_NAME ./tmux/* /home/$USER_NAME/
