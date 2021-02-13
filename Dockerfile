@@ -39,6 +39,7 @@ RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/in
 
 # Create dir to handle permissions
 RUN mkdir /home/$USER_NAME/.config
+RUN mkdir /home/$USER_NAME/go
 
 # Add dotfiles
 COPY --chown=$USER_NAME:$USER_NAME ./zsh/* /home/$USER_NAME/
