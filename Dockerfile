@@ -16,6 +16,14 @@ RUN apk update && apk add --no-cache \
       yarn>1.22.10 \
       zsh
 
+# Install golang
+# Symlink a lib to make golang work
+RUN mkdir /lib64 \
+      && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
+RUN wget -O go.tar.gz https://golang.org/dl/go1.15.8.linux-amd64.tar.gz
+RUN tar -C /usr/local/bin -xzf go.tar.gz
+RUN rm go.tar.gz
+
 # Setup timezone
 ENV TZ 'Europe/Paris'
 RUN echo $TZ > /etc/timezone
