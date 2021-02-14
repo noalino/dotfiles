@@ -16,13 +16,9 @@ RUN apk update && apk add --no-cache \
       yarn>1.22.10 \
       zsh
 
-# Install golang
 # Symlink a lib to make golang work
 RUN mkdir /lib64 \
       && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
-RUN wget -O go.tar.gz https://golang.org/dl/go1.15.8.linux-amd64.tar.gz
-RUN tar -C /usr/local/bin -xzf go.tar.gz
-RUN rm go.tar.gz
 
 # Setup timezone
 ENV TZ 'Europe/Paris'
@@ -33,18 +29,25 @@ ARG USER_ID
 ARG USER_NAME
 RUN adduser --uid $USER_ID --disabled-password --shell /bin/zsh $USER_NAME $USER_NAME
 USER $USER_NAME
+ENV HOME /home/$USER_NAME
+
+# Install golang with user permission to install packages
+RUN mkdir $HOME/lib
+RUN wget -O $HOME/go.tar.gz https://golang.org/dl/go1.15.8.linux-amd64.tar.gz
+RUN tar -C $HOME/lib -xzf $HOME/go.tar.gz
+RUN rm $HOME/go.tar.gz
 
 # Install oh-my-zsh
 RUN curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh | sh
 
-# Create dir to handle permissions
-RUN mkdir /home/$USER_NAME/.config
-RUN mkdir /home/$USER_NAME/go
+# Create dir to handle user permissions
+RUN mkdir $HOME/.config
+RUN mkdir $HOME/go
 
 # Add dotfiles
-COPY --chown=$USER_NAME:$USER_NAME ./zsh/* /home/$USER_NAME/
-COPY --chown=$USER_NAME:$USER_NAME ./tmux/* /home/$USER_NAME/
-COPY --chown=$USER_NAME:$USER_NAME ./nvim/ /home/$USER_NAME/.config/nvim/
+COPY --chown=$USER_NAME:$USER_NAME ./zsh/* $HOME/
+COPY --chown=$USER_NAME:$USER_NAME ./tmux/* $HOME/
+COPY --chown=$USER_NAME:$USER_NAME ./nvim/ $HOME/.config/nvim/
 
 # Install oh-my-zsh plugins
 RUN git clone https://github.com/zsh-users/zsh-autosuggestions.git $HOME/.oh-my-zsh/custom/plugins/zsh-autosuggestions
