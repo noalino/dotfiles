@@ -66,7 +66,8 @@ Plug 'sainnhe/sonokai'
 Plug 'itchyny/lightline.vim'
 
 Plug 'tpope/vim-fugitive'
-" git gutter?
+Plug 'airblade/vim-gitgutter'
+Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
 
@@ -96,7 +97,36 @@ let g:sonokai_style = 'atlantis'
 
 colorscheme sonokai
 
-let g:lightline = {'colorscheme' : 'sonokai'}
+let g:lightline = {
+    \ 'colorscheme': 'sonokai',
+    \ 'active': {
+    \   'left': [ [ 'mode', 'paste' ],
+    \             [ 'gitbranch', 'readonly', 'filename', 'modified', 'gitdiff' ] ]
+    \ },
+    \ 'component_function': {
+    \   'gitbranch': 'GitBranch',
+    \   'gitdiff': 'GitStatus',
+    \   'filetype': 'MyFiletype',
+    \   'fileformat': 'MyFileformat',
+    \ },
+    \ }
+
+function! GitBranch()
+  return printf(' %s', FugitiveHead())
+endfunction
+
+function! GitStatus()
+  let [a,m,r] = GitGutterGetHunkSummary()
+  return printf('+%d ~%d -%d', a, m, r)
+endfunction
+
+function! MyFiletype()
+  return winwidth(0) > 70 ? (strlen(&filetype) ? &filetype . ' ' . WebDevIconsGetFileTypeSymbol() : 'no ft') : ''
+endfunction
+  
+function! MyFileformat()
+  return winwidth(0) > 70 ? (&fileformat . ' ' . WebDevIconsGetFileFormatSymbol()) : ''
+endfunction
 
 " TODO set in specific golang file
 " Go syntax highlighting
