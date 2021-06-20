@@ -1,9 +1,11 @@
 " PREREQUISITES
 " - Neovim
 " - Vim Plug
+" - Create symlink for coc-settings.json in $HOME/.config/nvim
 " - FZF
 " - Ripgrep
 " - BAT
+" - Watchman in $PATH (to update imports on file rename)
 " ----------------------------------------------------------------------------------------------------------------
 set encoding=utf-8          " Set UTF-8 as standard encoding format
 set ffs=unix,dos,mac        " Use Unix as the standard file type
@@ -48,11 +50,12 @@ let mapleader = ","
 
 " Automatically execute 'syntax on' & 'filetype plugin indent on'
 call plug#begin()
-" coc.vim for autocompletion & intellisense & linter (eslint, prettier, etc.)
+
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 " Debugger?
 
 " Fuzzy finding
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', {'do': { -> fzf#install() }}
 Plug 'junegunn/fzf.vim'
 
 " NERDTree to show directory (to be replaced by ranger.vim?)
@@ -70,6 +73,7 @@ Plug 'airblade/vim-gitgutter'
 Plug 'itchyny/vim-gitbranch'
 Plug 'tpope/vim-commentary'
 Plug 'sheerun/vim-polyglot'
+Plug 'honza/vim-snippets'
 
 call plug#end()
 
@@ -157,6 +161,58 @@ nnoremap <F3> :set hlsearch!<CR>
 
 " Comment with Ctrl-/
 noremap <C-_> :Commentary<CR>
+
+" ----------------------------------------------------------------------------------------------------------------
+" ------------------------------------------------- COC ----------------------------------------------------------
+
+" coc config
+let g:coc_global_extensions = [
+  \ 'coc-eslint', 
+  \ 'coc-json', 
+  \ 'coc-pairs',
+  \ 'coc-prettier', 
+  \ 'coc-snippets',
+  \ 'coc-tsserver',
+  \ 'coc-yaml',
+  \ ]
+
+" Use TAB as completion (just like VSCode)
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? coc#_select_confirm() :
+      \ coc#expandableOrJumpable() ? "\<C-r>=coc#rpc#request('doKeymap', ['snippets-expand-jump',''])\<CR>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
+
+let g:coc_snippet_next = '<tab>'
+
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Use `[g` and `]g` to navigate diagnostics
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
+
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
 " ----------------------------------------------------------------------------------------------------------------
 " ------------------------------------------------- FZF ----------------------------------------------------------
