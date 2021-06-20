@@ -1,7 +1,15 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-# Add path to go bin
-export PATH=$HOME/lib/go/bin:$PATH
+
+# set PATH so it includes adb-fastboot
+if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
+    export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
+fi
+
+# Set PATH so it includes go bin
+if [ -d "$HOME/lib/go/bin" ] ; then
+  export PATH="$HOME/lib/go/bin:$PATH"
+fi
 
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
