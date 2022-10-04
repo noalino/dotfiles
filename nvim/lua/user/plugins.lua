@@ -45,7 +45,8 @@ return packer.startup(function(use)
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
 
-  use "morhetz/gruvbox" -- theme
+  use "morhetz/gruvbox" -- gruvbox theme
+  use "nvim-lualine/lualine.nvim" -- status bar theme
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
