@@ -9,6 +9,6 @@ if not success then
   return
 end
 
-vim.opt.background = "dark"
+vim.opt.background = "light"
 vim.g.gruvbox_contrast_dark = "soft"
 vim.g.gruvbox_contrast_light = "hard"
