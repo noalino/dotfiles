@@ -85,15 +85,18 @@ ZSH_THEME="ys"
 # export ZSH_TMUX_AUTOSTART="true"
 # export ZSH_TMUX_AUTOSTART_ONCE="false"
 
+export NVM_DIR="$HOME/.nvm"
+export NVM_LAZY_LOAD=true
+export NVM_COMPLETION=true
+# Specify nvim to load node-dependent nvim plugins
+export NVM_LAZY_LOAD_EXTRA_COMMANDS=('nvim')
+
 # Which plugins would you like to load?
 # Standard plugins can be found in ~/.oh-my-zsh/plugins/*
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-export NVM_DIR="$HOME/.nvm"
-export NVM_LAZY_LOAD=true
-export NVM_COMPLETION=true
 plugins=(
   zsh-nvm
   git
