@@ -5,4 +5,8 @@ if not success then
   return
 end
 
-lualine.setup()
+lualine.setup {
+  options = {
+    disabled_filetypes = { "NvimTree" }
+  }
+}
