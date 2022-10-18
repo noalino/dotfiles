@@ -51,6 +51,14 @@ return packer.startup(function(use)
   use "morhetz/gruvbox" -- gruvbox theme
   use "nvim-lualine/lualine.nvim" -- status bar theme
 
+  -- NvimTree
+  use {
+    "nvim-tree/nvim-tree.lua",
+    requires = {
+      "nvim-tree/nvim-web-devicons", -- optional, for file icons
+    },
+  }
+
   -- Completion
   use "hrsh7th/nvim-cmp" -- The completion plugin
   use "hrsh7th/cmp-buffer" -- buffer completions
