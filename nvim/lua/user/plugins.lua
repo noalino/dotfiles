@@ -47,6 +47,13 @@ return packer.startup(function(use)
   use "numToStr/Comment.nvim" -- Easily comment stuff
   use "windwp/nvim-autopairs" -- Autopairs
   use "lukas-reineke/indent-blankline.nvim" -- Indentation guidelines
+  use {
+    "akinsho/bufferline.nvim", -- Bufferline
+    tag = "v3.0.0",
+    requires = {
+      "nvim-tree/nvim-web-devicons",
+    },
+  }
 
   -- Colorscheme
   use "morhetz/gruvbox" -- gruvbox theme
