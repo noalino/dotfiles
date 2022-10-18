@@ -46,6 +46,7 @@ return packer.startup(function(use)
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
   use "numToStr/Comment.nvim" -- Easily comment stuff
   use "windwp/nvim-autopairs" -- Autopairs
+  use "lukas-reineke/indent-blankline.nvim" -- Indentation guidelines
 
   -- Colorscheme
   use "morhetz/gruvbox" -- gruvbox theme
