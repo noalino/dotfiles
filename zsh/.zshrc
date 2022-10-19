@@ -14,6 +14,9 @@ if [ -d "$HOME/lib/go/bin" ] ; then
   export PATH="$HOME/lib/go/bin:$PATH"
 fi
 
+# Add node binaries per project
+export PATH="$PATH:./node_modules/.bin"
+
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
