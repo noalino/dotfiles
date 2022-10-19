@@ -1,12 +1,12 @@
 local success, lualine = pcall(require, "lualine")
 
 if not success then
-  vim.notify("status bar could not be loaded!")
-  return
+	vim.notify("status bar could not be loaded!")
+	return
 end
 
-lualine.setup {
-  options = {
-    disabled_filetypes = { "NvimTree" }
-  }
-}
+lualine.setup({
+	options = {
+		disabled_filetypes = { "NvimTree" },
+	},
+})

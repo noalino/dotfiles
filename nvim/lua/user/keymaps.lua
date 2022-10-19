@@ -61,7 +61,7 @@ keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
 -- Nvim Tree
-keymap('n', '<leader>e', ":NvimTreeToggle<CR>", opts)
+keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
 
 -- Terminal --
 -- Better terminal navigation
@@ -71,7 +71,7 @@ keymap('n', '<leader>e', ":NvimTreeToggle<CR>", opts)
 -- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
 
 -- Telescope --
-keymap('n', 'ff', ":Telescope find_files <CR>", opts)
-keymap('n', 'fg', ":Telescope live_grep <CR>", opts)
-keymap('n', 'fb', ":Telescope buffers <CR>", opts)
-keymap('n', 'fh', ":Telescope help_tags <CR>", opts)
+keymap("n", "ff", ":Telescope find_files <CR>", opts)
+keymap("n", "fg", ":Telescope live_grep <CR>", opts)
+keymap("n", "fb", ":Telescope buffers <CR>", opts)
+keymap("n", "fh", ":Telescope help_tags <CR>", opts)

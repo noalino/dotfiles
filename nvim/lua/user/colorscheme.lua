@@ -1,12 +1,12 @@
-vim.cmd "colorscheme slate"
+vim.cmd("colorscheme slate")
 
 local colorscheme = "gruvbox"
 
 local success, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 
 if not success then
-  vim.notify("colorscheme " .. colorscheme .. " not found!")
-  return
+	vim.notify("colorscheme " .. colorscheme .. " not found!")
+	return
 end
 
 vim.opt.background = "light"
