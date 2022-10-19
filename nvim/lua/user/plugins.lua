@@ -99,6 +99,9 @@ return packer.startup(function(use)
     run = ":TSUpdate",
   }
 
+  -- Null-LS
+  use "jose-elias-alvarez/null-ls.nvim"
+
   -- Git
   use "lewis6991/gitsigns.nvim"
 
