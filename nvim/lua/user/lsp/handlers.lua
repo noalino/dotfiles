@@ -24,7 +24,6 @@ local function lsp_keymaps(bufnr)
 end
 
 local lsp_formatting = function(bufnr)
-	-- Format on save
 	vim.lsp.buf.format({
 		filter = function(client)
 			-- Use only null-ls as formatter to avoid conflicts with other LSPs
@@ -39,6 +38,7 @@ local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
 local on_attach = function(client, bufnr)
 	if client.supports_method("textDocument/formatting") then
 		vim.api.nvim_clear_autocmds({ group = augroup, buffer = bufnr })
+		-- Format on save
 		vim.api.nvim_create_autocmd("BufWritePre", {
 			group = augroup,
 			buffer = bufnr,

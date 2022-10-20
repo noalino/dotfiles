@@ -10,6 +10,7 @@ local diagnostics = null_ls.builtins.diagnostics
 null_ls.setup({
 	sources = {
 		diagnostics.eslint,
+		formatting.autopep8,
 		formatting.prettier,
 		formatting.stylua,
 	},
