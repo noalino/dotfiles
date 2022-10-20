@@ -14,6 +14,6 @@ configs.setup({
 	},
 	indent = {
 		enable = true,
-		disable = { "yaml" }, -- TODO To test
+		disable = { "python", "yaml" }, -- Waiting for a fix
 	},
 })
