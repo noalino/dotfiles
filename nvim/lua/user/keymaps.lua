@@ -39,8 +39,9 @@ keymap("n", "<S-l>", ":bnext<CR>", opts)
 keymap("n", "<S-h>", ":bprevious<CR>", opts)
 
 -- Insert --
--- Press jk fast to enter
+-- Press jk or JK fast to enter
 keymap("i", "jk", "<ESC>", opts)
+keymap("i", "JK", "<ESC>", opts)
 
 -- Visual --
 -- Stay in indent mode
