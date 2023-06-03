@@ -1,6 +1,10 @@
-vim.cmd("colorscheme slate")
+-- vim.cmd("colorscheme slate")
 
-local colorscheme = "gruvbox"
+require("catppuccin").setup({
+	flavour = "latte",
+})
+-- local colorscheme = "gruvbox"
+local colorscheme = "catppuccin"
 
 local success, _ = pcall(vim.cmd, "colorscheme " .. colorscheme)
 
@@ -9,6 +13,6 @@ if not success then
 	return
 end
 
-vim.opt.background = "light"
-vim.g.gruvbox_contrast_dark = "soft"
-vim.g.gruvbox_contrast_light = "hard"
+-- vim.opt.background = "light"
+-- vim.g.gruvbox_contrast_dark = "soft"
+-- vim.g.gruvbox_contrast_light = "hard"

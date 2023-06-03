@@ -62,7 +62,8 @@ return packer.startup(function(use)
 	use("lewis6991/gitsigns.nvim")
 
 	-- Colorscheme
-	use("morhetz/gruvbox") -- gruvbox theme
+	-- use("morhetz/gruvbox") -- gruvbox theme
+	use({ "catppuccin/nvim", as = "catppuccin" })
 	use("nvim-lualine/lualine.nvim") -- status bar theme
 
 	-- NvimTree
