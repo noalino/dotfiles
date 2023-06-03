@@ -21,6 +21,7 @@ local function lsp_keymaps(bufnr)
 	vim.keymap.set("n", "]d", vim.diagnostic.goto_next, opts)
 	vim.keymap.set("n", "<leader>D", vim.diagnostic.setloclist, opts)
 	vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format { async = true }' ]])
+	-- vim.cmd([[ command! Format execute 'lua vim.lsp.buf.format()' ]])
 end
 
 local lsp_formatting = function(bufnr)
@@ -28,6 +29,8 @@ local lsp_formatting = function(bufnr)
 		filter = function(client)
 			-- Use only null-ls as formatter to avoid conflicts with other LSPs
 			return client.name == "null-ls"
+			-- return client.name == "autopep8"
+			-- return client.name == "tsserver"
 		end,
 		bufnr = bufnr,
 	})
@@ -63,6 +66,7 @@ if not success_mason_lspconfig then
 end
 
 M.setup = function()
+	-- TODO: Change icons to have more padding
 	local signs = {
 		Error = "",
 		Warn = "",

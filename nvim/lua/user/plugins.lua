@@ -16,12 +16,12 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- Autocommand that reloads neovim whenever you save the plugins.lua file
-vim.cmd([[
-  augroup packer_user_config
-    autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
-  augroup end
-]])
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
 
 -- Use a protected call so we don't error out on first use
 local success, packer = pcall(require, "packer")
@@ -46,6 +46,11 @@ return packer.startup(function(use)
 	use("nvim-lua/plenary.nvim") -- Useful lua functions used ny lots of plugins
 	use("numToStr/Comment.nvim") -- Easily comment stuff
 	use("windwp/nvim-autopairs") -- Autopairs
+	-- use({ -- TODO: not working! And issue when tabbing in insert mode with ";" character on SQL files
+	-- 	"abecodes/tabout.nvim", -- Easy go out of autopairs
+	-- 	requires = { "nvim-treesitter/nvim-treesitter" },
+	-- 	after = { "nvim-cmp" },
+	-- })
 	use("lukas-reineke/indent-blankline.nvim") -- Indentation guidelines
 	use({
 		"akinsho/bufferline.nvim", -- Bufferline
@@ -54,6 +59,7 @@ return packer.startup(function(use)
 			"nvim-tree/nvim-web-devicons",
 		},
 	})
+	use("lewis6991/gitsigns.nvim")
 
 	-- Colorscheme
 	use("morhetz/gruvbox") -- gruvbox theme
@@ -85,6 +91,7 @@ return packer.startup(function(use)
 		"williamboman/mason-lspconfig.nvim",
 		"neovim/nvim-lspconfig",
 	})
+	use("jose-elias-alvarez/null-ls.nvim")
 
 	-- Telescope
 	use({
@@ -99,12 +106,6 @@ return packer.startup(function(use)
 		"nvim-treesitter/nvim-treesitter",
 		run = ":TSUpdate",
 	})
-
-	-- Null-LS
-	use("jose-elias-alvarez/null-ls.nvim")
-
-	-- Git
-	use("lewis6991/gitsigns.nvim")
 
 	-- Automatically set up your configuration after cloning packer.nvim
 	-- Put this at the end after all plugins

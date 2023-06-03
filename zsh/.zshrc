@@ -9,6 +9,11 @@ if [ -d "$HOME/adb-fastboot/platform-tools" ] ; then
     export PATH="$HOME/adb-fastboot/platform-tools:$PATH"
 fi
 
+# Set PATH so it includes go path
+if [ -d "/usr/local/go/bin" ] ; then
+  export PATH="/usr/local/go/bin:$PATH"
+fi
+
 # Set PATH so it includes go bin
 if [ -d "$HOME/lib/go/bin" ] ; then
   export PATH="$HOME/lib/go/bin:$PATH"
