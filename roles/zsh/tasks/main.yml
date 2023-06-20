@@ -1,6 +1,6 @@
 ---
 - name: Install zsh (with dependencies)
-  become: '{{ ansible_pkg_mgr != "brew" }}'
+  become: '{{ ansible_facts.distribution != "MacOSX" }}'
   ansible.builtin.package:
     name: '{{ dependencies }}'
     state: present
