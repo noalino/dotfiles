@@ -1,5 +1,17 @@
 ---
-dependencies:
+oh_my_zsh_dependencies:
   - git
   - curl
   - zsh
+
+oh_my_zsh_theme: ys
+
+oh_my_zsh_plugins:
+  - git
+  - docker
+  - docker-compose
+  - zsh-autosuggestions
+  - zsh-syntax-highlighting
+  - node
+  - npm
+  - yarn

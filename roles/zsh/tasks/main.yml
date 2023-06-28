@@ -1,6 +1,35 @@
 ---
-- name: Install zsh (with dependencies)
+- name: Install oh-my-zsh dependencies
   become: '{{ ansible_facts.distribution != "MacOSX" }}'
   ansible.builtin.package:
-    name: '{{ dependencies }}'
+    name: '{{ oh_my_zsh_dependencies }}'
     state: present
+
+# Inspired from https://github.com/gantsign/ansible-role-oh-my-zsh
+- name: Install oh-my-zsh
+  # https://github.com/ohmyzsh/ohmyzsh#unattended-install
+  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
+  args:
+    creates: ~/.oh-my-zsh
+
+- name: Install zsh-autosuggestions plugin
+  ansible.builtin.command: 'git clone https://github.com/zsh-users/zsh-autosuggestions ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+  args:
+    creates: ~/.oh-my-zsh/custom/plugins/zsh-autosuggestions
+
+- name: Install zsh-syntax-highlighting plugin
+  ansible.builtin.command: 'git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+  args:
+    creates: ~/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting
+
+# Set shell to zsh for specified user
+- name: Set zsh as the default shell
+  become: true
+  ansible.builtin.shell: if [[ $(echo $SHELL) != /usr/bin/zsh ]]; then chsh -s $(which zsh) {{ lookup('env', 'USER') }}; fi
+
+- name: Create a default zsh configuration
+  template:
+    src: zshrc.j2
+    dest: ~/.zshrc
+    backup: true
+    mode: 'u=rw,go=r'
