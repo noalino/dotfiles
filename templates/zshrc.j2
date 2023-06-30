@@ -69,7 +69,11 @@ ZSH_THEME="{{ oh_my_zsh_theme }}"
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
 
-plugins=({{ oh_my_zsh_plugins | join(' ') }})
+plugins=(
+  {% for plugin in oh_my_zsh_plugins %}
+  {{ plugin }}
+  {% endfor %}
+)
 
 # Need tmux plugin to work
 # export ZSH_TMUX_AUTOSTART="true"
