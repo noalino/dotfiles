@@ -13,6 +13,6 @@
     mode: 'u=rw,go=r'
 
 - name: Install tpm plugin manager
-  ansible.builtin.command: 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
-  args:
-    creates: ~/.tmux/plugins/tpm
+  ansible.builtin.git:
+    repo: 'https://github.com/tmux-plugins/tpm.git'
+    dest: ~/.tmux/plugins/tpm
