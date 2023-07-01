@@ -1,0 +1,27 @@
+---
+- name: Install fonts dependencies
+  become: '{{ ansible_facts.distribution != "MacOSX" }}'
+  ansible.builtin.package:
+    name: '{{ font_dependencies }}'
+    state: present
+
+- name: Setting font path for Debian
+  ansible.builtin.set_fact: font_path="~/.local/share/fonts"
+  when: ansible_facts.os_family == 'Debian'
+
+- name: Setting font path for Darwin
+  ansible.builtin.set_fact: font_path="~/Library/Fonts"
+  when: ansible_facts.os_family == 'Darwin'
+
+- name: Install fonts
+  ansible.builtin.shell: |
+    # curl -Lo UbuntuMonoNF-Regular.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFont-Regular.ttf
+    # curl -Lo UbuntuMonoNF-Italic.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Regular-Italic/UbuntuMonoNerdFont-Italic.ttf
+    # curl -Lo UbuntuMonoNF-Bold.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Bold/UbuntuMonoNerdFont-Bold.ttf
+    # curl -Lo UbuntuMonoNF-BoldItalic.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Bold-Italic/UbuntuMonoNerdFont-BoldItalic.ttf
+    curl -Lo UbuntuMonoNFMono-Regular.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Regular/UbuntuMonoNerdFontMono-Regular.ttf
+    curl -Lo UbuntuMonoNFMono-Italic.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Regular-Italic/UbuntuMonoNerdFontMono-Italic.ttf
+    curl -Lo UbuntuMonoNFMono-Bold.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Bold/UbuntuMonoNerdFontMono-Bold.ttf
+    curl -Lo UbuntuMonoNFMono-BoldItalic.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/UbuntuMono/Bold-Italic/UbuntuMonoNerdFontMono-BoldItalic.ttf
+  args:
+    chdir: '{{ font_path }}'
