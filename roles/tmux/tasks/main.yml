@@ -2,11 +2,11 @@
 - name: Create a default tmux configuration
   template:
     src: tmux.conf.j2
-    dest: ~/.tmux.conf
+    dest: '{{ ansible_facts.user_dir }}/.tmux.conf'
     backup: true
     mode: 'u=rw,go=r'
 
 - name: Install tpm plugin manager
   ansible.builtin.git:
     repo: 'https://github.com/tmux-plugins/tpm.git'
-    dest: ~/.tmux/plugins/tpm
+    dest: '{{ ansible_facts.user_dir }}/.tmux/plugins/tpm'
