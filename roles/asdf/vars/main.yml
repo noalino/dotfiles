@@ -1,0 +1,17 @@
+---
+asdf_debian_dependencies:
+  - curl
+  - git
+  # Tmux
+  # - libevent
+  # - ncurses
+  - bison
+
+asdf_darwin_dependencies:
+  - coreutils
+  - curl
+  - git
+
+asdf_plugins:
+  - name: tmux
+    version: 3.3
