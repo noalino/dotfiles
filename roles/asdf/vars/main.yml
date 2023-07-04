@@ -15,3 +15,5 @@ asdf_darwin_dependencies:
 asdf_plugins:
   - name: tmux
     version: 3.3
+  - name: neovim
+    version: 0.9.1
