@@ -1,3 +1,13 @@
 ---
 font_dependencies:
   - curl
+
+font_list:
+  - filename: UbuntuMonoNerdFontMono-Regular
+    path: UbuntuMono/Regular
+  - filename: UbuntuMonoNerdFontMono-Italic
+    path: UbuntuMono/Regular-Italic
+  - filename: UbuntuMonoNerdFontMono-Bold
+    path: UbuntuMono/Bold
+  - filename: UbuntuMonoNerdFontMono-BoldItalic
+    path: UbuntuMono/Bold-Italic
