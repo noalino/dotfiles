@@ -60,8 +60,8 @@ bind K resize-pane -U 5
 bind H resize-pane -L 5
 bind L resize-pane -R 5
 
-# Reload the file with Prefix r.
-bind r source-file ~/.tmux.conf \; display "Reloaded!"
+# Reload the file with Prefix+r.
+bind r source-file {{ ansible_facts.user_dir }}/.tmux.conf \; display 'Reloaded!'
 
 ###################################################################
 # Status bar
@@ -84,4 +84,4 @@ set -g @plugin 'wfxr/tmux-power'
 
 # Run the plugin manager, it should be at the end of this file
 # Press prefix+I to fetch plugins
-run '~/.tmux/plugins/tpm/tpm'
+run '{{ ansible_facts.user_dir }}/.tmux/plugins/tpm/tpm'
