@@ -1,6 +1,6 @@
 local ok, npairs = pcall(require, "nvim-autopairs")
 if not ok then
-  vim.notify("Module nvim-autopairs not found!")
+  vim.notify("Plugin nvim-autopairs not found!")
 	return
 end
 
@@ -17,13 +17,13 @@ npairs.setup({
 
 local ok_cmp_autopairs, cmp_autopairs = pcall(require, "nvim-autopairs.completion.cmp")
 if not ok_cmp_autopairs then
-  vim.notify("Module nvim-autopairs.completion.cmp not found!")
+  vim.notify("Plugin nvim-autopairs.completion.cmp not found!")
   return
 end
 
 local ok_cmp, cmp = pcall(require, "cmp")
 if not ok_cmp or not cmp then
-  vim.notify("Module cmp not found!")
+  vim.notify("Plugin cmp not found!")
 	return
 end
 

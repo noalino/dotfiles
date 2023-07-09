@@ -1,0 +1,9 @@
+local ok, bufbar = pcall(require, "bufbar")
+if not ok then
+  vim.notify("Plugin nvim-bufbar not found!")
+  return
+end
+
+bufbar.setup({
+  theme = 'dracula',
+})

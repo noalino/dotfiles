@@ -1,0 +1,8 @@
+local ok, nvim_surround = pcall(require, "nvim-surround")
+
+if not ok then
+	vim.notify("Plugin nvim-surround not found!")
+	return
+end
+
+nvim_surround.setup()

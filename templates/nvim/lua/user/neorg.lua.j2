@@ -1,0 +1,12 @@
+local ok, neorg = pcall(require, "neorg")
+if not ok then
+  vim.notify("Plugin neorg not found!")
+	return
+end
+
+neorg.setup({
+  load = {
+    ['core.defaults'] = {},
+    ['core.concealer'] = {},
+  },
+})

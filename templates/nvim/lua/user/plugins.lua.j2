@@ -1,0 +1,131 @@
+local fn = vim.fn
+
+-- Automatically install packer
+local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+if fn.empty(fn.glob(install_path)) > 0 then
+	PACKER_BOOTSTRAP = fn.system({
+		"git",
+		"clone",
+		"--depth",
+		"1",
+		"https://github.com/wbthomason/packer.nvim",
+		install_path,
+	})
+	print("Installing packer close and reopen Neovim...")
+	vim.cmd([[packadd packer.nvim]])
+end
+
+-- Autocommand that reloads neovim whenever you save the plugins.lua file
+-- vim.cmd([[
+--   augroup packer_user_config
+--     autocmd!
+--     autocmd BufWritePost plugins.lua source <afile> | PackerSync
+--   augroup end
+-- ]])
+
+-- Use a protected call so we don't error out on first use
+local ok, packer = pcall(require, "packer")
+if not ok then
+  vim.notify("Packer module not found, you may have to restart neovim")
+	return
+end
+
+-- Have packer use a popup window
+packer.init({
+	display = {
+		open_fn = function()
+			return require("packer.util").float({ border = "rounded" })
+		end,
+	},
+})
+
+-- Install your plugins here
+return packer.startup(function(use)
+	-- Default plugins
+	use 'wbthomason/packer.nvim' -- Have packer manage itself
+	use("nvim-lua/popup.nvim") -- An implementation of the Popup API from vim in Neovim
+	use("nvim-lua/plenary.nvim") -- Useful lua functions used in lots of plugins
+
+  -- UI
+	use({ "catppuccin/nvim", as = "catppuccin" }) -- Main theme
+	use("nvim-lualine/lualine.nvim") -- Statusline theme
+  use("ojroques/nvim-bufbar")
+	-- use({
+	--	"akinsho/bufferline.nvim", -- Bufferline
+	--	tag = "v3.0.0",
+	--	requires = {
+	--		"nvim-tree/nvim-web-devicons",
+	--	},
+	-- })
+	use({
+    "nvim-treesitter/nvim-treesitter", -- Syntax highlighting
+    -- run = ":TSUpdate"
+    run = function() -- Prevent Packer from failing at first install
+      local ts_update = require('nvim-treesitter.install').update({ with_sync = true })
+      ts_update()
+    end,
+  })
+	use("lukas-reineke/indent-blankline.nvim") -- Indentation guidelines
+
+  -- Productivity
+	use("numToStr/Comment.nvim") -- Make comment easy
+	use("windwp/nvim-autopairs") -- Autopairs
+	-- use({ -- TODO: not working! And issue when tabbing in insert mode with ";" character on SQL files
+	-- 	"abecodes/tabout.nvim", -- Easy go out of autopairs
+	-- 	requires = { "nvim-treesitter/nvim-treesitter" },
+	-- 	after = { "nvim-cmp" },
+	-- })
+  use {
+    "kylechui/nvim-surround", -- Make surrounding pairs modification easy
+    tag = "*",
+    requires = {
+      "nvim-treesitter/nvim-treesitter",
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+  }
+	use("lewis6991/gitsigns.nvim") -- Add git signs to the left
+  use("tpope/vim-fugitive") -- Git wrapper
+	-- use({
+	--	"nvim-tree/nvim-tree.lua", -- Display VSCode-like tree
+	--	requires = {
+	--		"nvim-tree/nvim-web-devicons", -- optional, for file icons
+	--	},
+	-- })
+	use({
+		"nvim-telescope/telescope.nvim", -- Fuzzy finder
+		tag = "0.1.2",
+		requires = { { "nvim-lua/plenary.nvim" } },
+	})
+	use({ "nvim-telescope/telescope-fzf-native.nvim", run = "make" }) -- Native fzf for better perfs
+  use({
+    "nvim-neorg/neorg", -- Note taking tool
+    run = ":Neorg sync-parsers",
+    requires = "nvim-lua/plenary.nvim",
+  })
+
+	-- Completion
+	-- use("hrsh7th/nvim-cmp") -- The completion plugin
+	-- use("hrsh7th/cmp-buffer") -- buffer completions
+	-- use("hrsh7th/cmp-path") -- path completions
+	-- use("hrsh7th/cmp-cmdline") -- cmdline completions
+	-- use("saadparwaiz1/cmp_luasnip") -- snippet completions
+	-- use("hrsh7th/cmp-nvim-lsp") -- LSP completions
+
+	-- Snippets
+	-- use("L3MON4D3/LuaSnip") -- Snippet engine
+	-- use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+
+	-- LSP
+	-- use({
+	--   "williamboman/mason.nvim",
+	--	"williamboman/mason-lspconfig.nvim",
+	--	"neovim/nvim-lspconfig",
+	-- })
+	-- use("jose-elias-alvarez/null-ls.nvim")
+
+	-- Automatically set up your configuration after cloning packer.nvim
+	-- Put this at the end after all plugins
+	if PACKER_BOOTSTRAP then
+		require("packer").sync()
+	end
+end)

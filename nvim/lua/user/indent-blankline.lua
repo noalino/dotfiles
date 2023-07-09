@@ -1,5 +1,6 @@
-local success, indent_blankline = pcall(require, "indent_blankline")
-if not success then
+local ok, indent_blankline = pcall(require, "indent-blankline")
+if not ok then
+  vim.notify("Plugin indent-blankline not found!")
 	return
 end
 

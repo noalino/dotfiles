@@ -1,3 +1,5 @@
+local create_autocmd = vim.api.nvim_create_autocmd
+
 local options = {
 	-- guicursor = "", -- keep block cursor style
 	backup = false, -- creates a backup file
@@ -34,7 +36,7 @@ local options = {
 	wrap = false, -- display lines as one long line
 	scrolloff = 8, -- is one of my fav
 	sidescrolloff = 8,
-	guifont = "MesloLGM Nerd Font Mono:h17", -- the font used in graphical neovim applications
+	guifont = "{{ neovim_gui_font }}:h17", -- the font used in graphical neovim applications
 }
 
 vim.opt.shortmess:append("c") -- don't give ins-completion-menu messages
@@ -46,3 +48,23 @@ end
 vim.cmd("set whichwrap+=<,>,[,],h,l") -- allow "h" & "l" keys to move to previous/next line when on edges
 vim.cmd([[set iskeyword+=-]]) -- treat dash symbol as single word union (useful when deleting a word for instance)
 vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
+
+-- Fix syntax highlighting for ninja template files
+create_autocmd({ "BufNewFile", "BufRead" }, {
+  pattern = { "*.j2" },
+  command = [[ execute 'set filetype='..matchlist(expand('<afile>'), '.*\.\(.*\)\.j2$')[1] ]],
+})
+-- NOT WORKING (should replace above function)
+-- vim.filetype.add({
+--   pattern = {
+--     ['.(a+).j2$'] = function(path, bufnr, ext)
+--       return ext
+--     end,
+--   },
+-- })
+
+-- Automatically remove extra spaces
+create_autocmd({ "BufWritePre" }, {
+  pattern = { "*" },
+  command = [[ %s/\s\+$//e ]],
+})
