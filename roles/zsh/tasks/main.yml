@@ -10,29 +10,41 @@
   # https://github.com/ohmyzsh/ohmyzsh#unattended-install
   ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
   args:
-    creates: '{{ ansible_facts.user_dir }}/.oh-my-zsh'
+    creates: '{{ zsh_dir | expandvars }}/oh-my-zsh'
+  environment:
+    ZSH: '{{ zsh_dir | expandvars }}/oh-my-zsh'
 
 - name: Install zsh-autosuggestions plugin
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-    dest: '{{ ansible_facts.user_dir }}/.oh-my-zsh/custom/plugins/zsh-autosuggestions'
+    dest: '{{ zsh_dir | expandvars }}/oh-my-zsh/custom/plugins/zsh-autosuggestions'
 
 - name: Install zsh-syntax-highlighting plugin
   ansible.builtin.git:
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: '{{ ansible_facts.user_dir }}/.oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
+    dest: '{{ zsh_dir | expandvars }}/oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
 - name: Set zsh as the default shell
   become: true
   ansible.builtin.shell: |
     if [[ {{ ansible_facts.user_shell | basename != "zsh" }} ]]
     then
-      chsh -s $(which zsh) {{ ansible_facts.user_id }}
+      chsh -s $(which zsh)
     fi
 
-- name: Create a default zsh configuration
+- name: Create zshenv file
   template:
-    src: zshrc.j2
-    dest: '{{ ansible_facts.user_dir }}/.zshrc'
+    src: zsh/zshenv.j2
+    # Need to be at the user root
+    dest: '{{ ansible_facts.user_dir }}/.zshenv'
     backup: true
     mode: 'u=rw,go=r'
+
+- name: Create zsh config files
+  template:
+    src: '{{ item }}'
+    dest: '{{ zsh_dir | expandvars }}/.{{ item | basename | regex_replace("\.j2$", "")}}'
+    backup: true
+    mode: 'u=rw,go=r'
+  # Exclude zshenv file
+  with_fileglob: '{{ lookup("fileglob", "templates/zsh/*.j2", wantlist=true) | reject("search", "zshenv") | list }}'
