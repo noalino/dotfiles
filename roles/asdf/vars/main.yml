@@ -2,10 +2,6 @@
 asdf_debian_dependencies:
   - curl
   - git
-  # Tmux
-  # - libevent
-  # - ncurses
-  - bison
 
 asdf_darwin_dependencies:
   - coreutils
@@ -13,7 +9,7 @@ asdf_darwin_dependencies:
   - git
 
 asdf_plugins:
-  - name: tmux
-    version: 3.3
-  - name: neovim
-    version: 0.9.1
+  # - name: tmux
+  #   version: 3.3
+  # - name: neovim
+  #   version: 0.9.1

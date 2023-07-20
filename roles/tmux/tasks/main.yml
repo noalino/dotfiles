@@ -1,4 +1,10 @@
 ---
+- name: Install tmux
+  become: '{{ ansible_facts.distribution != "MacOSX" }}'
+  ansible.builtin.package:
+    name: tmux
+    state: present
+
 - name: Create a default tmux configuration
   template:
     src: tmux.conf.j2

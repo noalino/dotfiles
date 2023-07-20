@@ -1,4 +1,17 @@
 ---
+- name: Install neovim
+  become: true
+  community.general.snap:
+    name: nvim
+    classic: true
+  when: ansible_facts.os_family == 'Debian'
+
+- name: Install neovim
+  ansible.builtin.package:
+    name: neovim
+    state: present
+  when: ansible_facts.os_family == 'Darwin'
+
 - name: Ensure directories exist
   file:
     path: '{{ ansible_facts.user_dir }}/.config/nvim/{{ item }}'
