@@ -5,11 +5,11 @@
     name: '{{ font_dependencies }}'
     state: present
 
-- name: Setting font path for Debian
-  ansible.builtin.set_fact: font_path="{{ ansible_facts.user_dir }}/.local/share/fonts"
+- name: Set font path for Debian
+  ansible.builtin.set_fact: font_path="{{ xdg_data_home }}/fonts"
   when: ansible_facts.os_family == 'Debian'
 
-- name: Setting font path for Darwin
+- name: Set font path for Darwin
   ansible.builtin.set_fact: font_path="{{ ansible_facts.user_dir }}/Library/Fonts"
   when: ansible_facts.os_family == 'Darwin'
 
