@@ -14,7 +14,7 @@
 
 - name: Ensure directories exist
   file:
-    path: '{{ ansible_facts.user_dir }}/.config/nvim/{{ item }}'
+    path: '{{ xdg_config_home }}/nvim/{{ item }}'
     state: directory
   loop:
     - plugin
@@ -24,12 +24,12 @@
 - name: Create a neovim init file
   template:
     src: nvim/init.lua.j2
-    dest: '{{ ansible_facts.user_dir }}/.config/nvim/init.lua'
+    dest: '{{ xdg_config_home }}/nvim/init.lua'
     mode: 'u=rw,go=r'
 
 - name: Create modules config files
   template:
     src: '{{ item }}'
-    dest: '{{ ansible_facts.user_dir }}/.config/nvim/lua/user/{{ item | basename | regex_replace("\.j2$", "")}}'
+    dest: '{{ xdg_config_home }}/nvim/lua/user/{{ item | basename | regex_replace("\.j2$", "")}}'
     mode: 'u=rw,go=r'
   with_fileglob: templates/nvim/lua/user/*.j2
