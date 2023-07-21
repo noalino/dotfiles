@@ -24,13 +24,11 @@
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
     dest: '{{ zsh_dir | expandvars }}/oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
-- name: Set zsh as the default shell
+- name: Set zsh as the default user shell
   become: true
-  ansible.builtin.shell: |
-    if [[ {{ ansible_facts.user_shell | basename != "zsh" }} ]]
-    then
-      chsh -s $(which zsh)
-    fi
+  ansible.builtin.user:
+    name: '{{ ansible_facts.user_id }}'
+    shell: /usr/bin/zsh
 
 - name: Create zshenv file
   template:
