@@ -4,3 +4,6 @@ xdg_data_home: '$XDG_CONFIG_HOME/local/share'
 xdg_cache_home: '$XDG_CONFIG_HOME/cache'
 
 zsh_dir: '$XDG_CONFIG_HOME/zsh'
+
+asdf_dir: '$XDG_CONFIG_HOME/asdf'
+asdf_data_dir: '$XDG_DATA_HOME/asdf'

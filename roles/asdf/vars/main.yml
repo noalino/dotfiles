@@ -7,9 +7,3 @@ asdf_darwin_dependencies:
   - coreutils
   - curl
   - git
-
-asdf_plugins:
-  # - name: tmux
-  #   version: 3.3
-  # - name: neovim
-  #   version: 0.9.1

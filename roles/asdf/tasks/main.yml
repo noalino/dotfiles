@@ -15,25 +15,55 @@
 - name: Clone asdf repo
   ansible.builtin.git:
     repo: 'https://github.com/asdf-vm/asdf.git'
-    dest: '{{ ansible_facts.user_dir }}/.asdf'
+    dest: '{{ asdf_dir | expandvars }}'
     version: v0.12.0
 
 - name: Insert asdf config .zshrc
   ansible.builtin.blockinfile:
-    path: '{{ ansible_facts.user_dir }}/.zshrc'
+    path: '{{ zsh_dir | expandvars }}/.zshrc'
+    marker: '{mark} asdf'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
     block: |
       # Load asdf
-      . "$HOME/.asdf/asdf.sh"
+      . "$ASDF_DIR/asdf.sh"
       # append completions to fpath
       fpath=(${ASDF_DIR}/completions $fpath)
       # initialise completions with ZSH's compinit
       autoload -Uz compinit && compinit
 
-- name: Install asdf plugins
+- name: Insert asdf env variables into .zshenv
+  ansible.builtin.blockinfile:
+    path: '{{ ansible_facts.user_dir }}/.zshenv'
+    marker: '{mark} asdf'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
+    block: |
+      export ASDF_DIR={{ asdf_dir }}
+      export ASDF_DATA_DIR={{ asdf_data_dir }}
+
+########################################
+################ Nodejs ################
+########################################
+# Plugin: https://github.com/asdf-vm/asdf-nodejs
+# Nodejs build: https://github.com/nodejs/node/blob/main/BUILDING.md#building-nodejs-on-supported-platforms
+- name: Install nodejs dependencies for Debian
+  become: true
+  ansible.builtin.package:
+    name:
+      - python3
+      - g++
+      - make
+      - python3-pip
+    state: present
+  when: ansible_facts.os_family == "Debian"
+
+- name: Install nodejs
+  vars:
+    name: nodejs
+    version: 18.17.0
   ansible.builtin.shell: |
-    export ASDF_DIR={{ ansible_facts.user_dir }}/.asdf
-    . {{ ansible_facts.user_dir }}/.asdf/asdf.sh
-    asdf plugin add {{ item.name }} || true
-    asdf install {{ item.name }} {{ item.version }}
-    asdf global {{ item.name }} {{ item.version }}
-  loop: '{{ asdf_plugins|flatten(levels=1) }}'
+    . "{{ asdf_dir | expandvars }}"/asdf.sh
+    asdf plugin add {{ name }} || true
+    asdf install {{ name }} {{ version }}
+    asdf global {{ name }} {{ version }}
