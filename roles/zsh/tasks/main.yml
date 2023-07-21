@@ -1,34 +1,20 @@
 ---
-- name: Install oh-my-zsh dependencies
+- name: Install zsh dependencies
   become: '{{ ansible_facts.distribution != "MacOSX" }}'
   ansible.builtin.package:
-    name: '{{ oh_my_zsh_dependencies }}'
+    name: '{{ zsh_dependencies }}'
     state: present
-
-# Inspired from https://github.com/gantsign/ansible-role-oh-my-zsh
-- name: Install oh-my-zsh
-  # https://github.com/ohmyzsh/ohmyzsh#unattended-install
-  ansible.builtin.shell: sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended --keep-zshrc
-  args:
-    creates: '{{ zsh_dir | expandvars }}/oh-my-zsh'
-  environment:
-    ZSH: '{{ zsh_dir | expandvars }}/oh-my-zsh'
-
-- name: Install zsh-autosuggestions plugin
-  ansible.builtin.git:
-    repo: 'https://github.com/zsh-users/zsh-autosuggestions.git'
-    dest: '{{ zsh_dir | expandvars }}/oh-my-zsh/custom/plugins/zsh-autosuggestions'
-
-- name: Install zsh-syntax-highlighting plugin
-  ansible.builtin.git:
-    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting.git'
-    dest: '{{ zsh_dir | expandvars }}/oh-my-zsh/custom/plugins/zsh-syntax-highlighting'
 
 - name: Set zsh as the default user shell
   become: true
   ansible.builtin.user:
     name: '{{ ansible_facts.user_id }}'
     shell: /usr/bin/zsh
+
+- name: Ensure directory exists
+  file:
+    path: '{{ zsh_dir | expandvars }}'
+    state: directory
 
 - name: Create zshenv file
   template:
