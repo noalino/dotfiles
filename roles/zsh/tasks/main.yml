@@ -38,3 +38,8 @@
     src: ./
     dest: '{{ zsh_dir | expandvars }}'
     mode: 'u=rw,go=r'
+
+- name: Install zsh-syntax-highlighting plugin
+  ansible.builtin.git:
+    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
+    dest: '{{ zsh_dir | expandvars }}/plugins/zsh-syntax-highlighting'
