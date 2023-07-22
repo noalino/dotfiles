@@ -39,12 +39,8 @@
     dest: '{{ zsh_dir | expandvars }}'
     mode: 'u=rw,go=r'
 
-- name: Install zsh-syntax-highlighting plugin
+- name: Install zsh plugins
   ansible.builtin.git:
-    repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'
-    dest: '{{ zsh_dir | expandvars }}/plugins/zsh-syntax-highlighting'
-
-- name: Install zsh-autosuggestions plugin
-  ansible.builtin.git:
-    repo: 'https://github.com/zsh-users/zsh-autosuggestions'
-    dest: '{{ zsh_dir | expandvars }}/plugins/zsh-autosuggestions'
+    repo: '{{ item.repo }}'
+    dest: '{{ zsh_dir | expandvars }}/plugins/{{ item.name }}'
+  loop: '{{ zsh_plugins }}'
