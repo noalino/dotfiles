@@ -12,3 +12,21 @@
     name: alacritty
     state: present
   when: ansible_facts.os_family == 'Darwin'
+
+- name: Ensure directory exists
+  ansible.builtin.file:
+    path: '{{ xdg_config_home }}/alacritty'
+    state: directory
+
+# Starting with version 0.13, the config file is a toml file
+- name: Create a default alacritty configuration
+  ansible.builtin.template:
+    src: alacritty/alacritty.yml.j2
+    dest: '{{ xdg_config_home }}/alacritty/alacritty.yml'
+    backup: true
+    mode: 'u=rw,go=r'
+
+- name: Install alacritty theme
+  ansible.builtin.git:
+    repo: 'https://github.com/catppuccin/alacritty'
+    dest: '{{ alacritty_theme_path | expandvars }}'
