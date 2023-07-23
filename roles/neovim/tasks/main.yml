@@ -1,19 +1,19 @@
 ---
-- name: Install neovim
+- name: Install neovim for Debian
   become: true
   community.general.snap:
     name: nvim
     classic: true
   when: ansible_facts.os_family == 'Debian'
 
-- name: Install neovim
+- name: Install neovim for Darwin
   ansible.builtin.package:
     name: neovim
     state: present
   when: ansible_facts.os_family == 'Darwin'
 
 - name: Ensure directories exist
-  file:
+  ansible.builtin.file:
     path: '{{ xdg_config_home }}/nvim/{{ item }}'
     state: directory
   loop:
@@ -22,13 +22,13 @@
     - lua/user
 
 - name: Create a neovim init file
-  template:
+  ansible.builtin.template:
     src: nvim/init.lua.j2
     dest: '{{ xdg_config_home }}/nvim/init.lua'
     mode: 'u=rw,go=r'
 
 - name: Create modules config files
-  template:
+  ansible.builtin.template:
     src: '{{ item }}'
     dest: '{{ xdg_config_home }}/nvim/lua/user/{{ item | basename | regex_replace("\.j2$", "")}}'
     mode: 'u=rw,go=r'

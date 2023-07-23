@@ -6,12 +6,12 @@
     state: present
 
 - name: Ensure directory exists
-  file:
+  ansible.builtin.file:
     path: '{{ xdg_config_home }}/tmux'
     state: directory
 
 - name: Create a default tmux configuration
-  template:
+  ansible.builtin.template:
     src: tmux.conf.j2
     dest: '{{ xdg_config_home }}/tmux/tmux.conf'
     backup: true
