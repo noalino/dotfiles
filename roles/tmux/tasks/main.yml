@@ -12,7 +12,7 @@
 
 - name: Create a default tmux configuration
   ansible.builtin.template:
-    src: tmux.conf.j2
+    src: tmux/tmux.conf.j2
     dest: '{{ xdg_config_home }}/tmux/tmux.conf'
     backup: true
     mode: 'u=rw,go=r'
