@@ -6,7 +6,7 @@
     state: present
 
 - name: Set font path for Debian
-  ansible.builtin.set_fact: font_path="{{ xdg_data_home }}/fonts"
+  ansible.builtin.set_fact: font_path="{{ xdg_data_home | expandvars }}/fonts"
   when: ansible_facts.os_family == 'Debian'
 
 - name: Set font path for Darwin
