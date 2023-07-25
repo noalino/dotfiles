@@ -1,0 +1,13 @@
+---
+- name: Install vscode for Debian
+  become: true
+  community.general.snap:
+    name: code
+    classic: true
+  when: ansible_facts.os_family == 'Debian'
+
+- name: Install vscode for Darwin
+  community.general.homebrew:
+    name: visual-studio-code
+    install_options: cask
+  when: ansible_facts.os_family == 'Darwin'
