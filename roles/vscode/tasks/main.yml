@@ -33,3 +33,13 @@
     --extensions-dir {{ xdg_config_home }}/vscode/extensions \
     --install-extension {{ item }}
   loop: '{{ vscode_extensions }}'
+
+- name: Add code alias
+  ansible.builtin.blockinfile:
+    path: '{{ zsh_dir | expandvars }}/aliases'
+    marker: '{mark} vscode'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
+    block: alias code='code
+      --user-data-dir $XDG_CONFIG_HOME/vscode/data
+      --extensions-dir $XDG_CONFIG_HOME/vscode/extensions'
