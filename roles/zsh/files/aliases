@@ -92,4 +92,4 @@ alias gsts='git stash show --text'
 ############### VSCode ################
 #######################################
 # Overwrite 'code' to find custom user data
-alias code='code --user-data-dir $XDG_CONFIG_HOME/vscode/data'
+alias code='code --user-data-dir $XDG_CONFIG_HOME/vscode/data --extensions-dir $XDG_CONFIG_HOME/vscode/extensions'

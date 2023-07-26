@@ -26,3 +26,10 @@
     dest: '{{ xdg_config_home }}/vscode/data/User/settings.json'
     backup: true
     mode: 'u=rw,go=r'
+
+- name: Install vscode extensions
+  ansible.builtin.command: code \
+    --user-data-dir {{ xdg_config_home }}/vscode/data \
+    --extensions-dir {{ xdg_config_home }}/vscode/extensions \
+    --install-extension {{ item }}
+  loop: '{{ vscode_extensions }}'
