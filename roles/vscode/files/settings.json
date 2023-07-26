@@ -1,0 +1,17 @@
+{
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.minimap.enabled": false,
+  "editor.suggestSelection": "first",
+  "prettier.singleQuote": true,
+  "telemetry.telemetryLevel": "crash",
+  "vsintellicode.modify.editor.suggestSelection": "automaticallyOverrodeDefaultValue",
+  "workbench.colorTheme": "Catppuccin Latte",
+  "workbench.iconTheme": "catppuccin-latte",
+  "[go]": {
+    "editor.defaultFormatter": "golang.go"
+  },
+  "[go.mod]": {
+    "editor.defaultFormatter": "golang.go"
+  }
+}

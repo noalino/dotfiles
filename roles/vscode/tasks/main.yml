@@ -11,3 +11,18 @@
     name: visual-studio-code
     install_options: cask
   when: ansible_facts.os_family == 'Darwin'
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: '{{ xdg_config_home }}/vscode/{{ item }}'
+    state: directory
+  loop:
+    - data/User
+    - extensions
+
+- name: Create a default vscode settings file
+  ansible.builtin.copy:
+    src: settings.json
+    dest: '{{ xdg_config_home }}/vscode/data/User/settings.json'
+    backup: true
+    mode: 'u=rw,go=r'
