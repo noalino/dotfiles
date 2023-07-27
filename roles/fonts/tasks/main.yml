@@ -6,12 +6,17 @@
     state: present
 
 - name: Set font path for Debian
-  ansible.builtin.set_fact: font_path="{{ xdg_data_home | expandvars }}/fonts"
+  ansible.builtin.set_fact: font_path="{{ xdg_data_home }}/fonts"
   when: ansible_facts.os_family == 'Debian'
 
 - name: Set font path for Darwin
   ansible.builtin.set_fact: font_path="{{ ansible_facts.user_dir }}/Library/Fonts"
   when: ansible_facts.os_family == 'Darwin'
+
+- name: Ensure directory exists
+  ansible.builtin.file:
+    path: '{{ font_path }}'
+    state: directory
 
 - name: Install fonts
   ansible.builtin.shell: curl -Lo {{ item.filename }}.ttf https://github.com/ryanoasis/nerd-fonts/raw/v3.0.2/patched-fonts/{{ item.path }}/{{ item.filename }}.ttf
