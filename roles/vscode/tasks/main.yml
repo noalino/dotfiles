@@ -14,7 +14,7 @@
 
 - name: Ensure directories exist
   ansible.builtin.file:
-    path: '{{ xdg_config_home }}/vscode/{{ item }}'
+    path: '{{ vscode_dir }}/{{ item }}'
     state: directory
   loop:
     - data/User
@@ -23,23 +23,23 @@
 - name: Create a default vscode settings file
   ansible.builtin.copy:
     src: settings.json
-    dest: '{{ xdg_config_home }}/vscode/data/User/settings.json'
+    dest: '{{ vscode_dir }}/data/User/settings.json'
     backup: true
     mode: 'u=rw,go=r'
 
 - name: Install vscode extensions
   ansible.builtin.command: code \
-    --user-data-dir {{ xdg_config_home }}/vscode/data \
-    --extensions-dir {{ xdg_config_home }}/vscode/extensions \
+    --user-data-dir {{ vscode_dir }}/data \
+    --extensions-dir {{ vscode_dir }}/extensions \
     --install-extension {{ item }}
   loop: '{{ vscode_extensions }}'
 
 - name: Add code alias
   ansible.builtin.blockinfile:
-    path: '{{ zsh_dir | expandvars }}/aliases'
+    path: '{{ zsh_dir }}/aliases'
     marker: '{mark} vscode'
     marker_begin: '\n# BEGIN'
     marker_end: '# END'
     block: alias code='code
-      --user-data-dir $XDG_CONFIG_HOME/vscode/data
-      --extensions-dir $XDG_CONFIG_HOME/vscode/extensions'
+      --user-data-dir {{ vscode_dir }}/data
+      --extensions-dir {{ vscode_dir }}/extensions'
