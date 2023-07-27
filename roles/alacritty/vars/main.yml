@@ -1,4 +1,2 @@
 ---
 alacritty_font: 'UbuntuMono Nerd Font Mono'
-
-alacritty_theme_path: '$XDG_CONFIG_HOME/alacritty/catppuccin'
