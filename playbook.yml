@@ -9,6 +9,7 @@
     asdf_dir: '$XDG_CONFIG_HOME/asdf'
     asdf_data_dir: '$XDG_DATA_HOME/asdf'
     tmux_dir: '$XDG_CONFIG_HOME/tmux'
+    nvim_dir: '$XDG_CONFIG_HOME/nvim'
 
   environment:
     # Need to explicitly use HOME env to make it work on VM
