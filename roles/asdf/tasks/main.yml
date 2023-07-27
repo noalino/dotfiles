@@ -15,12 +15,12 @@
 - name: Clone asdf repo
   ansible.builtin.git:
     repo: 'https://github.com/asdf-vm/asdf.git'
-    dest: '{{ asdf_dir | expandvars }}'
+    dest: '{{ asdf_dir }}'
     version: v0.12.0
 
 - name: Insert asdf config .zshrc
   ansible.builtin.blockinfile:
-    path: '{{ zsh_dir | expandvars }}/.zshrc'
+    path: '{{ zsh_dir }}/.zshrc'
     marker: '{mark} asdf'
     marker_begin: '\n# BEGIN'
     marker_end: '# END'
@@ -58,12 +58,19 @@
     state: present
   when: ansible_facts.os_family == "Debian"
 
+# TODO
+# xcode-select & python 3
+- name: Install nodejs dependencies for Darwin
+  ansible.builtin.command: xcode-select --install
+  when: ansible_facts.os_family == "Darwin"
+  # when: ansible_facts.distribution == "MacOSX"
+
 - name: Install nodejs
   vars:
     name: nodejs
     version: 18.17.0
   ansible.builtin.shell: |
-    . "{{ asdf_dir | expandvars }}"/asdf.sh
+    . "{{ asdf_dir }}"/asdf.sh
     asdf plugin add {{ name }} || true
     asdf install {{ name }} {{ version }}
     asdf global {{ name }} {{ version }}

@@ -13,7 +13,7 @@
 
 - name: Ensure directory exists
   ansible.builtin.file:
-    path: '{{ zsh_dir | expandvars }}'
+    path: '{{ zsh_dir }}'
     state: directory
 
 - name: Create zshenv file
@@ -27,7 +27,7 @@
 - name: Create zsh config files
   ansible.builtin.template:
     src: '{{ item }}'
-    dest: '{{ zsh_dir | expandvars }}/.{{ item | basename | regex_replace("\.j2$", "")}}'
+    dest: '{{ zsh_dir }}/.{{ item | basename | regex_replace("\.j2$", "")}}'
     backup: true
     mode: 'u=rw,go=r'
   # Exclude zshenv file
@@ -36,11 +36,11 @@
 - name: Copy config files
   ansible.builtin.copy:
     src: ./
-    dest: '{{ zsh_dir | expandvars }}'
+    dest: '{{ zsh_dir }}'
     mode: 'u=rw,go=r'
 
 - name: Install zsh plugins
   ansible.builtin.git:
     repo: '{{ item.repo }}'
-    dest: '{{ zsh_dir | expandvars }}/plugins/{{ item.name }}'
+    dest: '{{ zsh_dir }}/plugins/{{ item.name }}'
   loop: '{{ zsh_plugins }}'
