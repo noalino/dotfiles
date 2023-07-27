@@ -8,6 +8,8 @@
     zsh_dir: '$XDG_CONFIG_HOME/zsh'
     asdf_dir: '$XDG_CONFIG_HOME/asdf'
     asdf_data_dir: '$XDG_DATA_HOME/asdf'
+    tmux_dir: '$XDG_CONFIG_HOME/tmux'
+
   environment:
     # Need to explicitly use HOME env to make it work on VM
     XDG_CONFIG_HOME: '{{ ansible_env.HOME }}/.config'
