@@ -1,8 +1,4 @@
 ---
-zsh_dependencies:
-  - git
-  - zsh
-
 zsh_plugins:
   - name: zsh-syntax-highlighting
     repo: 'https://github.com/zsh-users/zsh-syntax-highlighting'

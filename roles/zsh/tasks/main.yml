@@ -2,14 +2,30 @@
 - name: Install zsh dependencies
   become: '{{ ansible_facts.distribution != "MacOSX" }}'
   ansible.builtin.package:
-    name: '{{ zsh_dependencies }}'
+    name: git
     state: present
+ 
+# MacOS comes with zsh pre-installed
+- name: Install zsh dependencies for Ubuntu
+  become: true
+  ansible.builtin.package:
+    name: zsh
+    state: present
+  when: ansible_facts.distribution == "Ubuntu"
 
-- name: Set zsh as the default user shell
+- name: Set zsh as the default user shell for Ubuntu
   become: true
   ansible.builtin.user:
     name: '{{ ansible_facts.user_id }}'
     shell: /usr/bin/zsh
+  when: ansible_facts.distribution == "Ubuntu"
+
+- name: Set zsh as the default user shell for MacOS
+  become: true
+  ansible.builtin.user:
+    name: '{{ ansible_facts.user_id }}'
+    shell: /bin/zsh
+  when: ansible_facts.distribution == "MacOSX"
 
 - name: Ensure directory exists
   ansible.builtin.file:
