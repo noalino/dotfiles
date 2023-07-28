@@ -1,16 +1,16 @@
 ---
-- name: Install neovim for Debian
+- name: Install neovim for Ubuntu
   become: true
   community.general.snap:
     name: nvim
     classic: true
-  when: ansible_facts.os_family == 'Debian'
+  when: ansible_facts.distribution == 'Ubuntu'
 
-- name: Install neovim for Darwin
+- name: Install neovim for MacOS
   ansible.builtin.package:
     name: neovim
     state: present
-  when: ansible_facts.os_family == 'Darwin'
+  when: ansible_facts.distribution == 'MacOSX'
 
 - name: Ensure directories exist
   ansible.builtin.file:
