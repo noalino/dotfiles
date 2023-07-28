@@ -1,16 +1,16 @@
 ---
-- name: Install vscode for Debian
+- name: Install vscode for Ubuntu
   become: true
   community.general.snap:
     name: code
     classic: true
-  when: ansible_facts.os_family == 'Debian'
+  when: ansible_facts.distribution == 'Ubuntu'
 
-- name: Install vscode for Darwin
-  community.general.homebrew:
+- name: Install vscode for MacOS
+  community.general.homebrew_cask:
     name: visual-studio-code
-    install_options: cask
-  when: ansible_facts.os_family == 'Darwin'
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
 
 - name: Ensure directories exist
   ansible.builtin.file:
