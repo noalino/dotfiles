@@ -9,9 +9,9 @@ export XDG_CACHE_HOME={{ xdg_cache_home }}
 
 # Zsh
 export ZDOTDIR={{ zsh_dir }}
-export HISTFILE=$ZDOTDIR/.zhistory  # History filepath
-export HISTSIZE=10000               # Maximum events for internal history
-export SAVEHIST=10000               # Maximum events in history file
+export HISTSIZE=5000		# Maximum events for internal history
+export SAVEHIST=1000		# Maximum events in history file
+export SHELL_SESSIONS_DISABLE=1	# Disable sessions as history is shared
 
 # Editor
 export EDITOR=nvim
