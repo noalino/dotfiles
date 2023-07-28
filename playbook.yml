@@ -24,8 +24,8 @@
   roles:
     - zsh
     - asdf
+    - fonts
     - tmux
     - neovim
     - alacritty
-    - fonts
     - vscode
