@@ -1,16 +1,16 @@
 ---
-- name: Install asdf dependencies for Debian
+- name: Install asdf dependencies for Ubuntu
   become: true
   ansible.builtin.package:
-    name: '{{ asdf_debian_dependencies }}'
+    name: '{{ asdf_ubuntu_dependencies }}'
     state: present
-  when: ansible_facts.os_family == "Debian"
+  when: ansible_facts.distribution == "Ubuntu"
 
-- name: Install asdf dependencies for Darwin
+- name: Install asdf dependencies for MacOS
   ansible.builtin.package:
-    name: '{{ asdf_darwin_dependencies }}'
+    name: '{{ asdf_macos_dependencies }}'
     state: present
-  when: ansible_facts.os_family == "Darwin"
+  when: ansible_facts.distribution == "MacOSX"
 
 - name: Clone asdf repo
   ansible.builtin.git:
@@ -47,7 +47,7 @@
 ########################################
 # Plugin: https://github.com/asdf-vm/asdf-nodejs
 # Nodejs build: https://github.com/nodejs/node/blob/main/BUILDING.md#building-nodejs-on-supported-platforms
-- name: Install nodejs dependencies for Debian
+- name: Install nodejs dependencies for Ubuntu
   become: true
   ansible.builtin.package:
     name:
@@ -56,14 +56,14 @@
       - make
       - python3-pip
     state: present
-  when: ansible_facts.os_family == "Debian"
+  when: ansible_facts.distribution == "Ubuntu"
 
-# TODO
-# xcode-select & python 3
-- name: Install nodejs dependencies for Darwin
-  ansible.builtin.command: xcode-select --install
-  when: ansible_facts.os_family == "Darwin"
-  # when: ansible_facts.distribution == "MacOSX"
+- name: Install nodejs dependencies for MacOS
+  ansible.builtin.package:
+    name:
+      - python3
+    state: present
+  when: ansible_facts.distribution == "MacOSX"
 
 - name: Install nodejs
   vars:

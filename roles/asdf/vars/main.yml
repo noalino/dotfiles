@@ -1,9 +1,9 @@
 ---
-asdf_debian_dependencies:
+asdf_ubuntu_dependencies:
   - curl
   - git
 
-asdf_darwin_dependencies:
+asdf_macos_dependencies:
   - coreutils
   - curl
   - git
