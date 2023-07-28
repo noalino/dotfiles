@@ -1,5 +1,16 @@
 # My dev environment
 
-## Setup
+Setup my dev environment with ansible. Ubuntu & macOS compatible.
 
-You need to have _ansible_ installed to be able to run the playbook.
+## Requirements
+
+- ansible
+
+MacOS:
+- Xcode Command Line Tools >= 11 (to install Nodejs)
+
+## Usage
+
+```bash
+$ ansible-playbook playbook.yml --ask-become-pass
+```
