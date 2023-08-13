@@ -1,30 +1,46 @@
-#######################################
-############### Common ################
-#######################################
-
-# enable color support of ls
+# Enable color support
 if [ -x /usr/bin/dircolors ]; then
   test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
 fi
+
+##########
+# Custom #
+##########
+
+alias ..='cd ..'
+
+######
+# ls #
+######
 
 alias ls='ls --color=auto'
 alias dir='dir --color=auto'
 alias vdir='vdir --color=auto'
 
-alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
-
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-#######################################
-################# Git #################
+########
+# grep #
+########
+
+alias grep='grep --color=auto'
+alias fgrep='fgrep --color=auto'
+alias egrep='egrep --color=auto'
+
+########
+# Nvim #
+########
+
+snvim='sudoedit' # Edit files requiring sudo with nvim
+
+#######
+# Git #
+#######
 # See oh-my-zsh:
 # - https://github.com/ohmyzsh/ohmyzsh/blob/master/lib/git.zsh
 # - https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
-#######################################
 
 # The git prompt's git commands are read-only and should not interfere with
 # other processes. This environment variable is equivalent to running with `git
@@ -51,11 +67,6 @@ function git_current_branch() {
   fi
   echo ${ref#refs/heads/}
 }
-
-#
-# Aliases
-# (sorted alphabetically)
-#
 
 alias g='git'
 
@@ -87,3 +98,34 @@ alias gstd='git stash drop'
 alias gstl='git stash list'
 alias gstp='git stash pop'
 alias gsts='git stash show --text'
+
+##################
+# Docker-compose #
+##################
+
+# Support Compose v2 as docker CLI plugin
+# (it checks if docker-compose is in PATH before setting 'dccmd')
+(( ${+commands[docker-compose]} )) && dccmd='docker-compose' || dccmd='docker compose'
+
+alias dco="$dccmd"
+alias dcb="$dccmd build"
+alias dce="$dccmd exec"
+alias dcps="$dccmd ps"
+alias dcrestart="$dccmd restart"
+alias dcrm="$dccmd rm"
+alias dcr="$dccmd run"
+alias dcstop="$dccmd stop"
+alias dcup="$dccmd up"
+alias dcupb="$dccmd up --build"
+alias dcupd="$dccmd up -d"
+alias dcupdb="$dccmd up -d --build"
+alias dcdn="$dccmd down"
+alias dcl="$dccmd logs"
+alias dclf="$dccmd logs -f"
+alias dcpull="$dccmd pull"
+alias dcstart="$dccmd start"
+alias dck="$dccmd kill"
+
+alias dcdev='$dccmd -f docker-compose.dev.yml'
+
+unset dccmd
