@@ -126,6 +126,6 @@ alias dcpull="$dccmd pull"
 alias dcstart="$dccmd start"
 alias dck="$dccmd kill"
 
-alias dcdev='$dccmd -f docker-compose.dev.yml'
+alias dcdev="$dccmd -f docker-compose.dev.yml"
 
 unset dccmd
