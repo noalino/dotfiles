@@ -13,5 +13,14 @@
   },
   "[go.mod]": {
     "editor.defaultFormatter": "golang.go"
+  },
+  "[html]": {
+    "editor.tabSize": 2
+  },
+  "[javascript]": {
+    "editor.tabSize": 2
+  },
+  "[typescript]": {
+    "editor.tabSize": 2
   }
 }
