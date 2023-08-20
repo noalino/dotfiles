@@ -1,0 +1,12 @@
+---
+- name: Install postman for Ubuntu
+  become: true
+  community.general.snap:
+    name: postman
+  when: ansible_facts.distribution == 'Ubuntu'
+
+- name: Install postman for MacOS
+  community.general.homebrew_cask:
+    name: postman
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
