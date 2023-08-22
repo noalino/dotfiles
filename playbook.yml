@@ -11,7 +11,7 @@
     tmux_dir: '$XDG_CONFIG_HOME/tmux'
     nvim_dir: '$XDG_CONFIG_HOME/nvim'
     alacritty_dir: '$XDG_CONFIG_HOME/alacritty'
-    vscode_dir: '$XDG_CONFIG_HOME/vscode'
+    vscodium_dir: '$XDG_CONFIG_HOME/vscodium'
 
   environment:
     # Need to explicitly use HOME env to make it work on VM
@@ -28,5 +28,5 @@
     - tmux
     - neovim
     - alacritty
-    - vscode
+    - vscodium
     - postman

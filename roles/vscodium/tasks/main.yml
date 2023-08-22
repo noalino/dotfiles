@@ -1,0 +1,45 @@
+---
+- name: Install vscodium for Ubuntu
+  become: true
+  community.general.snap:
+    name: codium
+    classic: true
+  when: ansible_facts.distribution == 'Ubuntu'
+
+- name: Install vscodium for MacOS
+  community.general.homebrew_cask:
+    name: vscodium
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
+
+- name: Ensure directories exist
+  ansible.builtin.file:
+    path: '{{ vscodium_dir }}/{{ item }}'
+    state: directory
+  loop:
+    - data/User
+    - extensions
+
+- name: Create a default vscodium settings file
+  ansible.builtin.copy:
+    src: settings.json
+    dest: '{{ vscodium_dir }}/data/User/settings.json'
+    backup: true
+    mode: 'u=rw,go=r'
+
+- name: Install vscodium extensions
+  ansible.builtin.command: codium \
+    --user-data-dir {{ vscodium_dir }}/data \
+    --extensions-dir {{ vscodium_dir }}/extensions \
+    --install-extension {{ item }}
+  loop: '{{ vscodium_extensions }}'
+
+- name: Add code alias
+  ansible.builtin.blockinfile:
+    path: '{{ zsh_dir }}/aliases'
+    marker: '{mark} vscodium'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
+    block: alias code='codium
+      --user-data-dir {{ vscodium_dir }}/data
+      --extensions-dir {{ vscodium_dir }}/extensions'
