@@ -68,19 +68,34 @@ bind r source-file {{ tmux_dir }}/tmux.conf \; display 'Reloaded!'
 ###################################################################
 
 # Theme options
-set -g @tmux_power_date_icon '📆'
-set -g @tmux_power_time_icon '⏳'
-set -g @tmux_power_user_icon '🌒'
-set -g @tmux_power_session_icon '🚀'
-set -g @tmux_power_theme 'snow'
+set -g @catppuccin_flavour 'latte'
+set -g @catppuccin_window_left_separator "█"
+set -g @catppuccin_window_right_separator "█"
+set -g @catppuccin_window_number_position "right"
+set -g @catppuccin_window_middle_separator "  █"
+#
+set -g @catppuccin_window_default_fill "number"
+set -g @catppuccin_window_default_text "#W"
+#
+set -g @catppuccin_window_current_fill "number"
+set -g @catppuccin_window_current_text "#W"
+#
+# set -g @catppuccin_status_modules 'application session user host date_time'
+set -g @catppuccin_status_modules 'directory session date_time'
+set -g @catppuccin_status_left_separator  ""
+set -g @catppuccin_status_right_separator " "
+set -g @catppuccin_status_right_separator_inverse "yes"
+set -g @catppuccin_status_fill "all"
+set -g @catppuccin_status_connect_separator "no"
+
+set -g @catppuccin_directory_text "#{pane_current_path}"
 
 ###################################################################
 # Plugins
 ###################################################################
 
 # Plugins
-# set -g @plugin "arcticicestudio/nord-tmux"
-set -g @plugin 'wfxr/tmux-power'
+set -g @plugin 'catppuccin/tmux'
 
 # Run the plugin manager, it should be at the end of this file
 # Press prefix+I to fetch plugins
