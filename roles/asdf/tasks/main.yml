@@ -54,6 +54,8 @@
       - g++
       - make
       - python3-pip
+      # Go
+      - coreutils
       # Rust
       - build-essential
     state: present
@@ -64,6 +66,8 @@
     name:
       # Nodejs
       - python3
+      # Go
+      - coreutils
     state: present
   when: ansible_facts.distribution == "MacOSX"
 
@@ -71,6 +75,16 @@
   vars:
     name: nodejs
     version: 18.17.0
+  ansible.builtin.shell: |
+    . "{{ asdf_dir }}"/asdf.sh
+    asdf plugin add {{ name }} || true
+    asdf install {{ name }} {{ version }}
+    asdf global {{ name }} {{ version }}
+
+- name: Install go
+  vars:
+    name: golang
+    version: 1.21.0
   ansible.builtin.shell: |
     . "{{ asdf_dir }}"/asdf.sh
     asdf plugin add {{ name }} || true
