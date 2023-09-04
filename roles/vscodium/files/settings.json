@@ -17,6 +17,9 @@
   "[go.mod]": {
     "editor.defaultFormatter": "golang.go"
   },
+  "gopls": {
+    "ui.semanticTokens": true
+  },
   "[html]": {
     "editor.tabSize": 2
   },
