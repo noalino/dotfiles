@@ -65,5 +65,10 @@ create_autocmd({ "BufNewFile", "BufRead" }, {
 -- Automatically remove extra spaces
 create_autocmd({ "BufWritePre" }, {
   pattern = { "*" },
-  command = [[ %s/\s\+$//e ]],
+  callback = function()
+    -- Exclude markdown files
+    if vim.bo.filetype ~= "markdown" then
+      vim.cmd([[ %s/\s\+$//e ]])
+    end
+  end,
 })
