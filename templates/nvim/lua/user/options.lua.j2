@@ -50,7 +50,7 @@ vim.cmd([[set formatoptions-=cro]]) -- TODO: this doesn't seem to work
 
 -- Fix syntax highlighting for ninja template files
 create_autocmd({ "BufNewFile", "BufRead" }, {
-  pattern = { "*.j2" },
+  pattern = { "*.*.j2" },
   command = [[ execute 'set filetype='..matchlist(expand('<afile>'), '.*\.\(.*\)\.j2$')[1] ]],
 })
 -- NOT WORKING (should replace above function)
