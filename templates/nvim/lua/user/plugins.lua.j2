@@ -16,10 +16,10 @@ vim.opt.rtp:prepend(lazypath)
 
 require('lazy').setup({
   -- Main theme
-	{ 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
+  { 'catppuccin/nvim', name = 'catppuccin', priority = 1000 },
 
   -- Statusline theme
-	'nvim-lualine/lualine.nvim',
+  'nvim-lualine/lualine.nvim',
 
   -- Buffer bar
   'ojroques/nvim-bufbar',
@@ -33,24 +33,24 @@ require('lazy').setup({
     build = ':TSUpdate',
   },
 
-	-- Detect expandtab and shiftwidth automatically
-  	'tpope/vim-sleuth',
+  -- Detect expandtab and shiftwidth automatically
+  'tpope/vim-sleuth',
 
   -- Indentation guidelines
-	'lukas-reineke/indent-blankline.nvim',
+  'lukas-reineke/indent-blankline.nvim',
 
   -- "gc" to comment visual regions/lines
-	'numToStr/Comment.nvim',
+  'numToStr/Comment.nvim',
 
   -- Autopairs
-	'windwp/nvim-autopairs',
+  'windwp/nvim-autopairs',
 
   -- TODO: not working! And issue when tabbing in insert mode with ";" character on SQL files
-	-- use({
-	-- 	"abecodes/tabout.nvim", -- Easy go out of autopairs
-	-- 	requires = { "nvim-treesitter/nvim-treesitter" },
-	-- 	after = { "nvim-cmp" },
-	-- })
+  -- use({
+  -- 	"abecodes/tabout.nvim", -- Easy go out of autopairs
+  -- 	requires = { "nvim-treesitter/nvim-treesitter" },
+  -- 	after = { "nvim-cmp" },
+  -- })
 
   -- Make surrounding pairs modification easy
   {
@@ -60,7 +60,7 @@ require('lazy').setup({
   },
 
   -- Show git signs in the gutter
-	'lewis6991/gitsigns.nvim',
+  'lewis6991/gitsigns.nvim',
 
   -- Git wrapper
   'tpope/vim-fugitive',
@@ -72,38 +72,38 @@ require('lazy').setup({
     dependencies = {
       'nvim-lua/plenary.nvim',
       {
-        'nvim-telescope/telescope-fzf-native.nvim',
-        build = 'make',
-        cond = function()
-          return fn.executable 'make' == 1
-        end,
+	'nvim-telescope/telescope-fzf-native.nvim',
+	build = 'make',
+	cond = function()
+	  return fn.executable 'make' == 1
+	end,
       },
     },
   },
 
   -- TODO
-	-- Completion
-	-- use("hrsh7th/nvim-cmp") -- The completion plugin
-	-- use("hrsh7th/cmp-buffer") -- buffer completions
-	-- use("hrsh7th/cmp-path") -- path completions
-	-- use("hrsh7th/cmp-cmdline") -- cmdline completions
-	-- use("saadparwaiz1/cmp_luasnip") -- snippet completions
-	-- use("hrsh7th/cmp-nvim-lsp") -- LSP completions
+  -- Completion
+  -- use("hrsh7th/nvim-cmp") -- The completion plugin
+  -- use("hrsh7th/cmp-buffer") -- buffer completions
+  -- use("hrsh7th/cmp-path") -- path completions
+  -- use("hrsh7th/cmp-cmdline") -- cmdline completions
+  -- use("saadparwaiz1/cmp_luasnip") -- snippet completions
+  -- use("hrsh7th/cmp-nvim-lsp") -- LSP completions
 
-	-- Snippets
-	-- use("L3MON4D3/LuaSnip") -- Snippet engine
-	-- use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
+  -- Snippets
+  -- use("L3MON4D3/LuaSnip") -- Snippet engine
+  -- use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
 
-	-- LSP
-	-- use({
-	--   "williamboman/mason.nvim",
-	--	"williamboman/mason-lspconfig.nvim",
-	--	"neovim/nvim-lspconfig",
-	-- })
-	-- use("jose-elias-alvarez/null-ls.nvim")
+  -- LSP
+  -- use({
+  --   "williamboman/mason.nvim",
+  --	"williamboman/mason-lspconfig.nvim",
+  --	"neovim/nvim-lspconfig",
+  -- })
+  -- use("jose-elias-alvarez/null-ls.nvim")
 },
-{
-  ui = {
-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
-  },
-})
+  {
+    ui = {
+      border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+    },
+  })
