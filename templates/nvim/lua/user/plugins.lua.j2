@@ -81,26 +81,18 @@ require('lazy').setup({
     },
   },
 
-  -- TODO
-  -- Completion
-  -- use("hrsh7th/nvim-cmp") -- The completion plugin
-  -- use("hrsh7th/cmp-buffer") -- buffer completions
-  -- use("hrsh7th/cmp-path") -- path completions
-  -- use("hrsh7th/cmp-cmdline") -- cmdline completions
-  -- use("saadparwaiz1/cmp_luasnip") -- snippet completions
-  -- use("hrsh7th/cmp-nvim-lsp") -- LSP completions
+  -- Autocompletion
+  {
+    'hrsh7th/nvim-cmp',
+    dependencies = {
+      -- Snippet Engine & its associated nvim-cmp source
+      'L3MON4D3/LuaSnip',
+      'saadparwaiz1/cmp_luasnip',
 
-  -- Snippets
-  -- use("L3MON4D3/LuaSnip") -- Snippet engine
-  -- use("rafamadriz/friendly-snippets") -- a bunch of snippets to use
-
-  -- LSP
-  -- use({
-  --   "williamboman/mason.nvim",
-  --	"williamboman/mason-lspconfig.nvim",
-  --	"neovim/nvim-lspconfig",
-  -- })
-  -- use("jose-elias-alvarez/null-ls.nvim")
+      -- Adds a number of user-friendly snippets
+      'rafamadriz/friendly-snippets',
+    },
+  },
 },
   {
     ui = {
