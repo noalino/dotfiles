@@ -1,9 +1,7 @@
 local opts = { noremap = true, silent = true }
 
--- local term_opts = { silent = true }
-
 -- Shorten function name
-local keymap = vim.api.nvim_set_keymap
+local keymap = vim.keymap.set
 
 --Remap space as leader key
 keymap("", "<Space>", "<Nop>", opts)
@@ -62,18 +60,22 @@ keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
 keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
 keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
 
--- Nvim Tree
--- keymap("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-
--- Terminal --
--- Better terminal navigation
--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
--- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
-
 -- Telescope --
-keymap("n", "ff", ":Telescope find_files <CR>", opts)
-keymap("n", "fg", ":Telescope live_grep <CR>", opts)
-keymap("n", "fb", ":Telescope buffers <CR>", opts)
-keymap("n", "fh", ":Telescope help_tags <CR>", opts)
+local tbuiltin = require('telescope.builtin')
+keymap("n", "<leader>?", tbuiltin.oldfiles, { desc = "[?] Find recently opened files" })
+keymap("n", "<leader><space>", tbuiltin.buffers, { desc = "[ ] Find existing buffers" })
+keymap("n", "<leader>/", function()
+  -- You can pass additional configuration to telescope to change theme, layout, etc.
+  tbuiltin.current_buffer_fuzzy_find(require('telescope.themes').get_dropdown {
+    winblend = 10,
+    previewer = false,
+  })
+end, { desc = "[/] Fuzzily search in current buffer" })
+
+keymap("n", "<leader>gf", tbuiltin.git_files, { desc = "Search [G]it [F]iles" })
+keymap("n", "<leader>sf", tbuiltin.find_files, { desc = "[S]earch [F]iles" })
+keymap("n", "<leader>sh", tbuiltin.help_tags, { desc = "[S]earch [H]elp" })
+keymap("n", "<leader>sw", tbuiltin.grep_string, { desc = "[S]earch current [W]ord" })
+keymap("n", "<leader>sg", tbuiltin.live_grep, { desc = "[S]earch by [G]rep" })
+keymap("n", "<leader>sd", tbuiltin.diagnostics, { desc = "[S]earch [D]iagnostics" })
+keymap("n", "<leader>sr", tbuiltin.resume, { desc = "[S]earch [R]esume" })
