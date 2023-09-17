@@ -79,3 +79,10 @@ keymap("n", "<leader>sw", tbuiltin.grep_string, { desc = "[S]earch current [W]or
 keymap("n", "<leader>sg", tbuiltin.live_grep, { desc = "[S]earch by [G]rep" })
 keymap("n", "<leader>sd", tbuiltin.diagnostics, { desc = "[S]earch [D]iagnostics" })
 keymap("n", "<leader>sr", tbuiltin.resume, { desc = "[S]earch [R]esume" })
+
+-- Diagnostic keymaps
+local diagnostic = vim.diagnostic
+keymap("n", "[d", diagnostic.goto_prev, { desc = "Go to previous diagnostic message" })
+keymap("n", "]d", diagnostic.goto_next, { desc = "Go to next diagnostic message" })
+keymap("n", "<leader>e", diagnostic.open_float, { desc = "Open floating diagnostic message" })
+keymap("n", "<leader>q", diagnostic.setloclist, { desc = "Open diagnostics list" })
