@@ -37,7 +37,10 @@ require('lazy').setup({
   'tpope/vim-sleuth',
 
   -- Indentation guidelines
-  'lukas-reineke/indent-blankline.nvim',
+  {
+    'lukas-reineke/indent-blankline.nvim',
+    main = 'ibl',
+  },
 
   -- "gc" to comment visual regions/lines
   'numToStr/Comment.nvim',
