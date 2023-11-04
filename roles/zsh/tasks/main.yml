@@ -32,11 +32,11 @@
     path: '{{ zsh_dir }}'
     state: directory
 
-- name: Create zshenv file
+- name: Create zprofile file
   ansible.builtin.template:
-    src: zsh/zshenv.j2
+    src: zsh/zprofile.j2
     # Need to be at the user root
-    dest: '{{ ansible_facts.user_dir }}/.zshenv'
+    dest: '{{ ansible_facts.user_dir }}/.zprofile'
     backup: true
     mode: 'u=rw,go=r'
 
@@ -46,8 +46,8 @@
     dest: '{{ zsh_dir }}/.{{ item | basename | regex_replace("\.j2$", "")}}'
     backup: true
     mode: 'u=rw,go=r'
-  # Exclude zshenv file
-  with_fileglob: '{{ lookup("fileglob", "templates/zsh/*.j2", wantlist=true) | reject("search", "zshenv") | list }}'
+  # Exclude zprofile file
+  with_fileglob: '{{ lookup("fileglob", "templates/zsh/*.j2", wantlist=true) | reject("search", "zprofile") | list }}'
 
 - name: Copy config files
   ansible.builtin.copy:

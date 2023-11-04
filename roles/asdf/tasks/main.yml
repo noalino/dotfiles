@@ -31,9 +31,9 @@
       # Append completions to fpath
       fpath=(${ASDF_DIR}/completions $fpath)
 
-- name: Insert asdf env variables into .zshenv
+- name: Insert asdf env variables into .zprofile
   ansible.builtin.blockinfile:
-    path: '{{ ansible_facts.user_dir }}/.zshenv'
+    path: '{{ ansible_facts.user_dir }}/.zprofile'
     marker: '{mark} asdf'
     marker_begin: '\n# BEGIN'
     marker_end: '# END'

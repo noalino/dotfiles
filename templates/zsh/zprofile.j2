@@ -1,0 +1,19 @@
+################################
+# EXPORT ENVIRONMENT VARIABLES #
+################################
+
+# XDG
+export XDG_CONFIG_HOME={{ xdg_config_home }}
+export XDG_DATA_HOME={{ xdg_data_home }}
+export XDG_CACHE_HOME={{ xdg_cache_home }}
+
+# Zsh
+export ZDOTDIR={{ zsh_dir }}
+export HISTFILE=$ZDOTDIR/.zsh_history 	# Specify history file path (Ubuntu seems to need it)
+export HISTSIZE=5000			# Maximum events for internal history
+export SAVEHIST=1000			# Maximum events in history file
+export SHELL_SESSIONS_DISABLE=1		# Disable sessions as history is shared
+
+# Editor
+export EDITOR=nvim
+export VISUAL=nvim
