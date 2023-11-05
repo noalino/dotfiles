@@ -10,3 +10,9 @@
     name: postman
     state: present
   when: ansible_facts.distribution == 'MacOSX'
+
+- name: Install stats for MacOS
+  ansible.builtin.package:
+    name: stats
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
