@@ -16,3 +16,9 @@
     name: stats
     state: present
   when: ansible_facts.distribution == 'MacOSX'
+
+- name: Install sourcetree for MacOS
+  community.general.homebrew_cask:
+    name: sourcetree
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
