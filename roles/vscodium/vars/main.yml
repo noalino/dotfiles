@@ -1,15 +1,19 @@
 ---
 vscodium_extensions:
+  - bradlc.vscode-tailwindcss
   - budparr.language-hugo-vscode
-  - Catppuccin.catppuccin-vsc
-  - Catppuccin.catppuccin-vsc-icons
-  - DavidAnson.vscode-markdownlint
+  - bungcip.better-toml
+  - catppuccin.catppuccin-vsc
+  - catppuccin.catppuccin-vsc-icons
+  - davidanson.vscode-markdownlint
   - dbaeumer.vscode-eslint
   - eamodio.gitlens
   - esbenp.prettier-vscode
   - golang.go
+  - hookyqr.beautify
+  - josee9988.minifyall
   - mikestead.dotenv
-  - HookyQR.beautify
+  - ms-python.pylint
   - ms-python.python
   - shardulm94.trailing-spaces
   - shd101wyy.markdown-preview-enhanced
