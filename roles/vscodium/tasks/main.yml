@@ -34,7 +34,30 @@
     --install-extension {{ item }}
   loop: '{{ vscodium_extensions }}'
 
-- name: Add code alias
+- name: Create user data symbolic link
+  ansible.builtin.file:
+    src: '{{ vscodium_dir }}/data'
+    dest: '{{ ansible_env.HOME }}/Library/Application Support/VSCodium'
+    state: link
+  when: ansible_facts.distribution == 'MacOSX'
+
+- name: Create extensions symbolic link
+  ansible.builtin.file:
+    src: '{{ vscodium_dir }}/extensions'
+    dest: '{{ ansible_env.HOME }}/.vscode-oss/extensions'
+    state: link
+  when: ansible_facts.distribution == 'MacOSX'
+
+- name: Add code alias for MacOS
+  ansible.builtin.blockinfile:
+    path: '{{ zsh_dir }}/aliases'
+    marker: '{mark} vscodium'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
+    block: alias code=codium
+  when: ansible_facts.distribution == 'MacOSX'
+
+- name: Add code alias for Ubuntu
   ansible.builtin.blockinfile:
     path: '{{ zsh_dir }}/aliases'
     marker: '{mark} vscodium'
@@ -43,3 +66,4 @@
     block: alias code='codium
       --user-data-dir {{ vscodium_dir }}/data
       --extensions-dir {{ vscodium_dir }}/extensions'
+  when: ansible_facts.distribution == 'Ubuntu'
