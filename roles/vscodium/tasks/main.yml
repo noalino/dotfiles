@@ -20,12 +20,15 @@
     - data/User
     - extensions
 
-- name: Create a default vscodium settings file
+- name: Create vscodium user config files
   ansible.builtin.copy:
-    src: settings.json
-    dest: '{{ vscodium_dir }}/data/User/settings.json'
+    src: '{{ item }}'
+    dest: '{{ vscodium_dir }}/data/User/{{ item }}'
     backup: true
     mode: 'u=rw,go=r'
+  loop:
+    - keybindings.json
+    - settings.json
 
 - name: Install vscodium extensions
   ansible.builtin.command: codium \

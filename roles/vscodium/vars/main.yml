@@ -15,5 +15,6 @@ vscodium_extensions:
   - mikestead.dotenv
   - ms-python.pylint
   - ms-python.python
+  - ritwickdey.liveserver
   - shardulm94.trailing-spaces
   - shd101wyy.markdown-preview-enhanced
