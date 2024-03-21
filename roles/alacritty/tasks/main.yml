@@ -11,9 +11,6 @@
   community.general.homebrew_cask:
     name: alacritty
     state: present
-  # ansible.builtin.package:
-  #   name: alacritty
-  #   state: present
   when: ansible_facts.distribution == 'MacOSX'
 
 - name: Ensure directory exists
@@ -21,11 +18,11 @@
     path: '{{ alacritty_dir }}'
     state: directory
 
-# Starting with version 0.13, the config file is a toml file
+# Starting from v0.13, the YAML config file changed to a TOML file
 - name: Create a default alacritty configuration file
   ansible.builtin.template:
-    src: alacritty/alacritty.yml.j2
-    dest: '{{ alacritty_dir }}/alacritty.yml'
+    src: alacritty/alacritty.toml.j2
+    dest: '{{ alacritty_dir }}/alacritty.toml'
     backup: true
     mode: 'u=rw,go=r'
 
