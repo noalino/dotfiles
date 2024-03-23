@@ -18,13 +18,13 @@
     dest: '{{ asdf_dir }}'
     version: v0.12.0
 
-- name: Insert asdf config .zshrc
+- name: Insert asdf config into .zshrc
   ansible.builtin.blockinfile:
     path: '{{ zsh_dir }}/.zshrc'
     insertbefore: '# Completion'
     marker: '{mark} asdf'
     marker_begin: '# BEGIN'
-    marker_end: '# END'
+    marker_end: '# END\n'
     block: |
       # Load asdf
       . "$ASDF_DIR/asdf.sh"

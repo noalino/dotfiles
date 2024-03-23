@@ -1,0 +1,16 @@
+---
+- name: Install miniconda for MacOS
+  community.general.homebrew_cask:
+    name: miniconda
+    state: present
+  when: ansible_facts.distribution == 'MacOSX'
+
+- name: Insert conda config into .zshrc
+  ansible.builtin.blockinfile:
+    path: '{{ zsh_dir }}/.zshrc'
+    marker: '{mark} conda'
+    marker_begin: '\n# BEGIN'
+    marker_end: '# END'
+    block: |
+      eval "$(conda "shell.$(basename "${SHELL}")" hook)"
+  when: ansible_facts.distribution == 'MacOSX'
