@@ -9,6 +9,7 @@ setopt HIST_VERIFY          # Do not execute immediately upon expansion
 
 # Vim key binding
 bindkey -v
+source $ZDOTDIR/cursor_mode
 
 # Aliases
 source $ZDOTDIR/aliases
@@ -20,12 +21,12 @@ source $ZDOTDIR/prompt_setup
 # Autosuggestions
 source $ZDOTDIR/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Syntax highlighting
-# This should always be at the end of the file
-source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-
 # Completion
 autoload -Uz compinit && compinit
 _comp_options+=(globdots) # Include hidden files
 
 zstyle ':completion:*' menu select
+
+# Syntax highlighting
+# This should always be at the end of the file
+source $ZDOTDIR/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh

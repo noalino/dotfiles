@@ -4,7 +4,7 @@
   ansible.builtin.package:
     name: git
     state: present
- 
+
 # MacOS comes with zsh pre-installed
 - name: Install zsh dependencies for Ubuntu
   become: true
